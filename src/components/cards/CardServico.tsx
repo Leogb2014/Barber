@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+
+
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import { GiConfirmed } from 'react-icons/gi';
+
 
 
 import Popup from 'reactjs-popup'
@@ -26,6 +30,8 @@ const generateTimeSlots = (start: Date, end: Date, interval: number) => {
 
 
 
+
+
  
 
 function CardServico(props: cardServicoProps) {
@@ -33,16 +39,12 @@ function CardServico(props: cardServicoProps) {
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState<string>('');
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [ModalOK, setModalOk] = useState<boolean>(false);
     const [events, setEvents] = useState<{ start: Date; end: Date; title: string }[]>([]);
     const [newEvent, setNewEvent] = useState<{ start: Date; end: Date; title: string; service: string } | null>(null);
     const [serviceType, setServiceType] = useState<string>('Cabelo e Barba');
    
-    const[agendamento, setAgendamento] = useState<any>({
-      tipo: '',
-      dia: '',
-      hora: ''
 
-    })
 
     const timeSlots = startDate
       ? generateTimeSlots(
@@ -60,11 +62,7 @@ function CardServico(props: cardServicoProps) {
         'Barba': 45,
       };
 
-      
-    
-    
-    
-      
+
 
     const handleDateChange = (date: Date | null) => {
         if (date) {
@@ -87,24 +85,15 @@ function CardServico(props: cardServicoProps) {
           setShowModal(false);
           setStartDate(null);
           setSelectedTime('');
-          setAgendamento({
-            tipo: serviceType,
-            dia: start
-          })
+          setModalOk(true)
         }
       };
-
-      console.log(agendamento)
-    
-     
-
-
 
 
   return (
     <>
 
-    <div className=' w-full flex gap-4 flex-col  items-center rounded-xl shadow-2xl  justify-between'>
+    <div className=' w-72 flex gap-4 flex-col  items-center rounded-xl shadow-2xl  justify-between'>
         <div>
             <img className='rounded-t-xl ' src={props.imagem} alt="" />
             
@@ -115,11 +104,29 @@ function CardServico(props: cardServicoProps) {
         <div className='text-white mb-12'>
             {props.preco}
          </div>
+         
          <button className='text-2xl text-white mb-10 border rounded-xl px-6 py-1 hover:bg-white hover:text-black' onClick={() => setShowModal(true)}>Agendar</button>
-
+         
+      
+         
     </div>
 
+       <div>
+      {ModalOK && (
+        <Popup open={ModalOK} onClose={() => setModalOk(false)} modal>
+          <div className='bg-white flex items-center w-auto h-80 border rounded-2xl'>
+          <GiConfirmed size={90} color='green'/>
+            <h1 className='text-5xl'> Agendamento Confirmado</h1>
+          </div>
+
+
+        </Popup>      )}
+
+       </div>
+
+
     <div >
+
       
       {showModal && (
         <Popup open={showModal} onClose={() => setShowModal(false)} modal>
