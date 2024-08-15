@@ -4,7 +4,7 @@
 
 body{
   background-color: #1c1c22;
- 
+  height: 100vh;
 }
 
 /* Contêiner do Swiper */
@@ -32,7 +32,7 @@ body{
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff;
-
+  
   border-radius: 50%;
   padding: 10px;
 }
@@ -44,11 +44,12 @@ body{
   justify-content: space-between;
   bottom: 10px;
   z-index: 10;
+  
 }
 
 /* Ajustar a paginação */
 .swiper-pagination {
-  position: relative;
+  position: static;
   bottom: 1rem;
   text-align: center;
   width: 15rem;

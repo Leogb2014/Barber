@@ -12,7 +12,11 @@ function DadosConta() {
         nome: '',
         nascimento: '',
         email: 'email@email.com',
-        telefone: '(xx)xxxxx-xxxx'
+        telefone: '(xx)xxxxx-xxxx',
+        agendamento: {
+            dia: '',
+            hora: ''
+        }
     })
 
     const handleDateChange = (date: Date | null) => {
@@ -34,7 +38,6 @@ function DadosConta() {
     
         })
       }
-
 
 
   return (
@@ -69,8 +72,6 @@ function DadosConta() {
               />
 
 
-
-        
 </div>
 
 

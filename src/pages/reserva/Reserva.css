@@ -1,0 +1,32 @@
+.custom-calendar .MuiPickersDay-root {
+    color: white; /* Cor dos números dos dias */
+  }
+  
+  .custom-calendar .MuiPickersDay-root.Mui-selected {
+    color: white; /* Cor do número do dia selecionado */
+  }
+  
+  .custom-calendar .MuiPickersDay-root.Mui-disabled {
+    color: white; /* Cor dos números dos dias desativados */
+  }
+
+  .custom-calendar .MuiPickersCalendarHeader-root .MuiTypography-root.MuiPickersCalendarHeader-dayLabel {
+    color: white !important; /* Cor das letras dos dias da semana */
+  }
+  .custom-calendar .MuiTypography-root {
+    color: white; /* Cor dos dias da semana, se aplicável */
+  }
+ 
+  .custom-calendar .MuiPickersArrowSwitcher-leftArrowIcon {
+    color: white; /* Cor desejada para as setas */
+  }
+
+  .custom-calendar .MuiPickersArrowSwitcher-rightArrowIcon {
+    color: white; /* Cor desejada para as setas */
+  }
+
+  .custom-calendar .MuiPickersCalendarHeader-switchViewIcon {
+    color: white; /* Cor desejada para as setas */
+  }
+
+  
