@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { CgArrowLongLeft, CgArrowLongRight } from 'react-icons/cg'
 import Config from '../config/Config'
 import DadosConta from '../dadosConta/DadosConta'
+import Sobre from '../sobre/Sobre'
 
-function Profile() {
+function Menu() {
 
   const[menuConfig, setMenuConfig] = useState<boolean>(false)
   const[menuConta, setMenuConta] = useState<boolean>(false)
+  const[menuSobre, setMenuSobre] = useState<boolean>(false)
 
   function menuConfigAbrir(){
     setMenuConfig(!menuConfig)
@@ -16,6 +18,11 @@ function Profile() {
     setMenuConta(!menuConta)
   }
 
+  function menuSobreAbrir(){
+    setMenuSobre(!menuSobre)
+  }
+
+  
 
   return (
     <>
@@ -42,9 +49,9 @@ function Profile() {
           Configurações <CgArrowLongRight color='black'/>
         </button>
         </div>
-        <div className='border-b-2 p-4 w-full text-black'>
-        <button>
-          Sobre o Barber
+        <div className='border-b-2 p-4 w-full '>
+        <button onClick={menuSobreAbrir} className=' flex items-center gap-2 text-black'>
+          Sobre o Barber <CgArrowLongRight color='black'/>
         </button>
 
         </div>
@@ -63,6 +70,10 @@ function Profile() {
 <div className={`fixed top-0 right-0 h-full w-full bg-white  text-white z-0 transform ${menuConta ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
 <div className='mb-2 border-b-2 w-full ml-2 p-2'>
 <CgArrowLongLeft color='black' size={30} onClick={menuContaAbrir}/></div><DadosConta/></div>
+
+<div className={`fixed top-0 right-0 h-full w-full bg-white  text-white z-0 transform ${menuSobre ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+<div className='mb-2 border-b-2 w-full ml-2 p-2'>
+<CgArrowLongLeft color='black' size={30} onClick={menuSobreAbrir}/></div><Sobre/></div>
    
 
 
@@ -71,4 +82,4 @@ function Profile() {
   )
 }
 
-export default Profile
+export default Menu

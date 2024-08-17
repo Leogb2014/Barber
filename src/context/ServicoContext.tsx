@@ -23,7 +23,7 @@ export function ServicoProvider({ children }: ServicoProviderProps) {
     async function retornar(){
         setIsLoading(true)
         try{
-            const dados = await buscar('/api/servicos')
+            const dados = await buscar('/servicos')
            setServico(dados.data.data)
            setIsLoading(false)
         }catch(error){

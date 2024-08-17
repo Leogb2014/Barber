@@ -16,7 +16,6 @@ import 'swiper/css/effect-coverflow'
 import CardAgendamento from '../../components/cards/CardAgendamento'
 
 import ImageSlider from '../../components/imageSlider/ImageSlider'
-import { buscar } from '../../service/Service'
 import { CgArrowLongLeft } from 'react-icons/cg'
 import Reserva from '../reserva/Reserva'
 import { ServicoContext } from '../../context/ServicoContext'
@@ -49,10 +48,6 @@ function Home() {
     setAbaReserva(false)
   }
   
-  useEffect(() => {
-    retornar()
-  }, [])
-
 
   return (
     <>
@@ -77,21 +72,13 @@ function Home() {
   <CgArrowLongLeft color='white' size={30} onClick={fecharAba}/></div><Reserva tipo={atributos.tipo} preco={atributos.preco}  />
   
 
-  
-  
-  
   </div>
   </>
 
 ))}
       
 </div>
-
-
-
-
-
-     
+ 
     
 <div className='pt-6 px-6 pb-1 border-b mb-4'>
 <p >Reservas</p>
@@ -100,13 +87,6 @@ function Home() {
       <CardAgendamento status={'confirmado'} serviço={'Cabelo e barba'} nome={'Leonardo'} mes={'Agosto'} dia={'06'} hora={'18:30'} />
     </div>
     
-
-   
-
-
-  
-  
-  
 
     </>
   )
