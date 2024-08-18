@@ -1,36 +1,54 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import Agendamento from '../../models/Agendamento'
+import {  buscarAgenda } from '../../service/Service'
+import { AuthContext } from '../../context/AuthContext'
+
 
 interface cardAgendamentoProps{
-    status: string,
-    serviço: string,
-    nome: string,
-    mes: string,
-    dia: string,
-    hora: string
+  agendamento: Agendamento
 }
 
 function CardAgendamento(props: cardAgendamentoProps) {
+
+  const[agendamento, setAgendamento]  = useState<Agendamento[]>({} as Agendamento[])
+
+  const{usuario} = useContext(AuthContext)
+  const token = usuario.token
+
+
+  async function buscarAgendamentos(){
+    try{
+      await buscarAgenda('/agendamentos', setAgendamento, {
+        headers: { Authorization: token },
+      })
+    }catch(error){
+      alert('erro ao buscar')
+    }
+  }
+
+
+
   return (
     <div className=' border border-gray-700 rounded-md m-10  flex justify-between'>
-    <div className='flex flex-col gap-4 mx-4 text-center'>
-      <div className=' rounded-2xl mt-2 text-black text-center font-bold bg-purple-600'>
-        {props.status}
-      </div>
+    <div className='flex flex-col gap-2 mx-4 text-center'>
+      
+      <div className="badge badge-secondary font-bold mt-2">Confirmado</div>
+      
       <div className='font-bold text-white'>
-        {props.serviço}
+      {props.agendamento.servico.nome}
       </div>
       <div className='flex gap-2 items-center' >
         <img src="http://github.com/Leogb2014.png" className='rounded-full w-8' alt="" />
-        <p className='text-white'>{props.nome}</p>
+        <p className='text-white'>{props.agendamento.usuario.nome}</p>
       </div>
 
 
     </div>
 
       <div className='border-l-2 p-7 border-gray-700 text-white font-semibold text-center'>
-        <p>{props.mes}</p>
-        <p>{props.dia}</p>
-        <p>{props.hora}</p>
+        <p>{props.agendamento.dia}</p>
+        <p>{props.agendamento.hora}</p>
+        <p>    </p>
       </div>
 </div>
   )

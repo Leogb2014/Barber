@@ -102,7 +102,7 @@ function CadastroUsuario() {
             <input
                 type="text"
                 name="telefone"
-                id="email"
+                id="telefone"
                 placeholder='(xx) xxxxx-xxxx'
                 value={usuario.telefone}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
@@ -123,7 +123,7 @@ function CadastroUsuario() {
             <label htmlFor="senha">Senha</label>
             <div>
             <input 
-            type="text" 
+            type="password" 
             name="senha" 
             id="senha" 
             placeholder='' 
@@ -135,7 +135,7 @@ function CadastroUsuario() {
             <label htmlFor="confirmarSenha">Confirmar Senha</label>
             <div>
             <input 
-            type="text" 
+            type="password" 
             name="confirmarSenha" 
             id="confirmarSenha" 
             placeholder='' 

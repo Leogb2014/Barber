@@ -1,23 +1,15 @@
-import React, { ChangeEvent, useState } from 'react'
-import Usuario from '../../models/Usuario'
+import React, {  useContext, useState } from 'react'
+
 import DatePicker from 'react-datepicker'
+import { AuthContext } from '../../context/AuthContext';
 
 function DadosConta() {
 
     const [startDate, setStartDate] = useState<Date | null>(null);
 
+  const{usuario} = useContext(AuthContext)
 
-
-    const[usuario, setUsuario] = useState<Usuario>({
-        nome: '',
-        nascimento: '',
-        email: 'email@email.com',
-        telefone: '(xx)xxxxx-xxxx',
-        agendamento: {
-            dia: '',
-            hora: ''
-        }
-    })
+  
 
     const handleDateChange = (date: Date | null) => {
         if (date) {
@@ -25,19 +17,6 @@ function DadosConta() {
         }
       };
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-  
-        setUsuario({
-    
-          ...usuario,
-    
-          [e.target.name]: e.target.value
-  
-          
-  
-    
-        })
-      }
 
 
   return (
@@ -54,10 +33,10 @@ function DadosConta() {
 
         
         <input type="text" name="nome" id="nome"
-        value={usuario?.nome}
-        placeholder="Nome e sobrenome"
+        value={usuario.nome}
+        placeholder={usuario.nome}
         className="border border-gray-300 rounded p-3 placeholder-[#756F6E] bg-transparent font-medium"
-        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+        />
         </div>
 <div className='flex flex-col text-black'>
 
@@ -93,8 +72,8 @@ function DadosConta() {
     </div>
 
     <div className='text-black p-4 flex justify-between'>
-        <div>
-        <p className='textsm'>Número de telefone</p>
+        <div >
+        <p className=''>Número de telefone</p>
         {usuario.telefone}
 
         </div>

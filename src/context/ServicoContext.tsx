@@ -1,8 +1,9 @@
 import { createContext, ReactNode, useState } from "react";
 import { buscar } from "../service/Service";
+import Servico from "../models/Servico";
 
 interface ServicoContextProps {
-    servico: any[]
+    servico: Servico[]
     isLoading: boolean
     retornar(): Promise<void>
 }
@@ -15,15 +16,14 @@ export const ServicoContext = createContext({} as ServicoContextProps)
 
 export function ServicoProvider({ children }: ServicoProviderProps) {
 
-    const [servico, setServico] = useState<any[]>([])
+    const [servico, setServico] = useState<Servico[]>([])
 
     const [isLoading, setIsLoading] = useState(false)
 
     async function retornar(){
         setIsLoading(true)
         try{
-            const dados = await buscar('/servicos')
-           setServico(dados.data.data)
+            await buscar('/servicos', setServico)
            setIsLoading(false)
         }catch(error){
             alert('Erro')
