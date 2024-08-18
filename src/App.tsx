@@ -7,10 +7,13 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { ptBR } from 'date-fns/locale';
 import { ServicoProvider } from './context/ServicoContext';
 import CadastroUsuario from './pages/cadastroUsuario/CadastroUsuario';
+import Login from './pages/login/Login';
+import { AuthProvider } from './context/AuthContext';
 
 
 function App() {
   return (
+    <AuthProvider>
     <ServicoProvider>
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
     <BrowserRouter>
@@ -19,12 +22,14 @@ function App() {
       <Route path='/Home' element={<Home/>}/>
       <Route path='/' element={<Home/>}/>
       <Route path='/cadastro' element={<CadastroUsuario/>}/>
+      <Route path='/login' element={<Login/>}/>
     </Routes>
     </BrowserRouter>
 
     </LocalizationProvider>
 
     </ServicoProvider>
+    </AuthProvider>
   )
 }
 

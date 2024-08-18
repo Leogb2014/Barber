@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useState } from "react";
-import Servico from "../models/Servico";
 import { buscar } from "../service/Service";
 
 interface ServicoContextProps {
