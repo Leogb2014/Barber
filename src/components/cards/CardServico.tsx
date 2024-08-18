@@ -1,9 +1,5 @@
-import React, {  useState } from 'react'
+import React, {   } from 'react'
 import "react-datepicker/dist/react-datepicker.css";
-import Reserva from '../../pages/reserva/Reserva';
-import { CgArrowLongLeft } from 'react-icons/cg';
-
-
 
 
 interface cardServicoProps{
@@ -14,10 +10,7 @@ interface cardServicoProps{
 
 function CardServico(props: cardServicoProps) {
 
-    
-   
 
-  
 
   return (
     <>
