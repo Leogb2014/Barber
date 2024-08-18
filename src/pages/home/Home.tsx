@@ -19,29 +19,37 @@ import ImageSlider from '../../components/imageSlider/ImageSlider'
 import { CgArrowLongLeft } from 'react-icons/cg'
 import Reserva from '../reserva/Reserva'
 import { ServicoContext } from '../../context/ServicoContext'
+import ListaAgendamento from '../../components/agendamento/ListaAgendamento'
 
 
 function Home() {
   
   const[abaReserva, setAbaReserva] = useState<boolean>(false)
-
-  const{ retornar, servico } = useContext(ServicoContext)
   const[atributos, setAtributos] = useState({
-    tipo: '',
+    nome: '',
     preco: ''
   })
+
+  const{ retornar, servico } = useContext(ServicoContext)
 
   function abrirReserva(id: number){
     const item = servico.find(item => item.id === id)
     if(item){
       setAtributos({
-        tipo: item.attributes.tipo,
-        preco: item.attributes.preco
+        nome: item.nome,
+        preco: item.preco
       })
-    }
       setAbaReserva(true)
+    }
+      
   
   }
+
+
+
+  useEffect(() => {
+    retornar()
+  }, [])
 
 
   function fecharAba(){
@@ -61,21 +69,23 @@ function Home() {
 </div>
 <div className='flex flex-col gap-2 items-center'>
     
-{servico && servico.map((item) => (
+
+ {servico && servico.map((item) => (
   <>
-  
   <button onClick={() => abrirReserva(item.id)} key={item.id}>
-    <CardServico   imagem={foto} tipo={item.attributes.tipo} preco={item.attributes.preco}   />
+    <CardServico   imagem={foto} tipo={item.nome} preco={item.preco}   />
   </button>
   <div className={`fixed top-0 right-0 h-full w-full bg-[#1c1c22] text-black z-50 transform ${abaReserva ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
   <div className='mb-2 border-b-2 w-full  p-2 items-center'>
-  <CgArrowLongLeft color='white' size={30} onClick={fecharAba}/></div><Reserva tipo={atributos.tipo} preco={atributos.preco}  />
+  <CgArrowLongLeft color='white' size={30} onClick={fecharAba}/></div><Reserva tipo={atributos.nome} preco={atributos.preco}  />
   
 
   </div>
   </>
+ ))}
+  
+ 
 
-))}
       
 </div>
  
@@ -84,7 +94,7 @@ function Home() {
 <p >Reservas</p>
 </div>
     <div>
-      <CardAgendamento status={'confirmado'} serviço={'Cabelo e barba'} nome={'Leonardo'} mes={'Agosto'} dia={'06'} hora={'18:30'} />
+      <ListaAgendamento/>
     </div>
     
 

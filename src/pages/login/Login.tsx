@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import UsuarioLogin from '../../models/UsuarioLogin'
 import { AuthContext } from '../../context/AuthContext';
 import { RotatingLines } from 'react-loader-spinner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
 
@@ -54,13 +54,14 @@ function Login() {
             <label htmlFor="senha">Senha</label>
             <div>
             <input 
-            type="text" 
+            type="password" 
             name="senha" 
             id="senha" 
             placeholder='' 
             value={usuarioLogin.senha}
             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             required 
+            
             className="border-2 border-slate-700 rounded w-96 p-2" />
             </div>
 
@@ -78,6 +79,13 @@ function Login() {
             <span>Entrar</span>}
           </button>
             </div>
+
+            <p>
+            Ainda não tem uma conta?{' '}
+            <Link to="/cadastro" className="text-purple-600 hover:underline">
+              Cadastre-se
+            </Link>
+          </p>
 
 
             

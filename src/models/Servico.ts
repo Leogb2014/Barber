@@ -1,4 +1,5 @@
 export default interface Servico{
-    tipo: string,
+    id: 0,
+    nome: string,
     preco: string
 }

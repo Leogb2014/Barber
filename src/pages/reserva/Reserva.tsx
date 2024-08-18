@@ -1,5 +1,5 @@
 import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { } from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
@@ -41,7 +41,6 @@ function Reserva(props: servicoProps) {
 
 function mostrarHora(hora: string){
   setHora(hora)
-
 }
 
   function formatarData(){
