@@ -10,7 +10,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { ptBR } from 'date-fns/locale/pt-BR';
 
-import {  useEffect, useState } from 'react';
+import {  useContext, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y} from 'swiper/modules';
 import './Reserva.css';
@@ -20,10 +20,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/effect-coverflow'
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import Agendamento from '../../models/Agendamento';
+import Servico from '../../models/Servico';
+import { cadastrar } from '../../service/Service';
 
 interface servicoProps{
-  tipo: string,
-  preco: string
+  servico: Servico
 }
 
 function Reserva(props: servicoProps) {
@@ -35,17 +39,32 @@ function Reserva(props: servicoProps) {
   ]
 
   const [value, setValue] = React.useState<Date| null>(new Date());
-  const[dia, setDia] = useState<string>()
+  const[dia, setDia] = useState<string>('')
   const[hora, setHora] = useState('')
+
+  const[reservar, setReservar] = useState<Agendamento>({} as Agendamento)
+
+  const navigate = useNavigate()
+
+  const { usuario } = useContext(AuthContext)
+  const token = usuario.token
 
 
 function mostrarHora(hora: string){
   setHora(hora)
+  setReservar({
+    id: 0,
+    dia: dia,
+    hora: hora,
+    servico: props.servico,
+    usuario: usuario
+  })
 }
 
   function formatarData(){
     const formatDay = value ? dayjs(value).format('DD/MM/YYYY'): 'Nenhuma data selecionada'
     setDia(formatDay)
+   
   }
 
 useEffect(() => {
@@ -57,6 +76,21 @@ useEffect(() => {
   formatarData()
   
 }, [value])
+
+useEffect(() => {
+  if (token === '') {
+    navigate('/home');
+  }
+}, [token]);
+
+
+async function cadastrarReserva(){
+  try{
+    await cadastrar('/agendamentos', reservar, setReservar, {headers: {Authorization: token}})
+  }catch(error){
+    alert("Erro ao reservar")
+  }
+}
 
   return (
     <>
@@ -107,11 +141,11 @@ useEffect(() => {
         </div>
         
           <div className='font-bold text-white'>
-            {props.tipo}
+            {props.servico.nome}
         
         </div>
         <div className='text-purple-600'>
-          {props.preco}
+          {props.servico.preco}
         </div>
   
       </div>
@@ -126,7 +160,7 @@ useEffect(() => {
   </div>
 
   <div className='flex justify-center'>
-    <button className='badge badge-primary text-white p-7 '>Agendar</button>
+    <button onClick={cadastrarReserva} className='badge badge-primary text-white p-7 '>Agendar</button>
   </div>
 
 

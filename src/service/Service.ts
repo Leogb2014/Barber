@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import axios from "axios";
 
 const api = axios.create({
@@ -25,8 +26,9 @@ export const buscarAgenda = async(url: string, setDados: Function, header: Objec
  
 }
 
-export const cadastrar = async(url: string, dados: Object) => {
-  const resposta = await api.post(url, dados)
+export const cadastrar = async(url: string, dados: Object, setDados: Function, header: Object) => {
+  const resposta = await api.post(url, dados, header)
+  setDados(resposta.data)
 }
 
 export const atualizar = async(url: string, dados: Object, setDados: Function, header: Object) => {

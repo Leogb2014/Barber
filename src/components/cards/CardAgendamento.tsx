@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Agendamento from '../../models/Agendamento'
 import {  buscarAgenda } from '../../service/Service'
 import { AuthContext } from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 
 interface cardAgendamentoProps{
@@ -11,20 +12,31 @@ interface cardAgendamentoProps{
 function CardAgendamento(props: cardAgendamentoProps) {
 
   const[agendamento, setAgendamento]  = useState<Agendamento[]>({} as Agendamento[])
+  const navigate = useNavigate()
 
   const{usuario} = useContext(AuthContext)
   const token = usuario.token
 
 
+
   async function buscarAgendamentos(){
     try{
-      await buscarAgenda('/agendamentos', setAgendamento, {
-        headers: { Authorization: token },
-      })
+      if(token !== ''){
+        await buscarAgenda('/agendamentos', setAgendamento, {
+          headers: { Authorization: token },
+        })
+      }
     }catch(error){
       alert('erro ao buscar')
     }
   }
+
+  useEffect(() => {
+    if(token === ''){
+      navigate('/home')
+    }
+    buscarAgendamentos()
+  }, [token])
 
 
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { IoMenu } from 'react-icons/io5'
 import { Link, useNavigate } from 'react-router-dom'
-import Profile from '../../pages/menu/Menu'
 import Menu from '../../pages/menu/Menu'
 
 

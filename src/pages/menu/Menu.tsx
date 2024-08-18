@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { CgArrowLongLeft, CgArrowLongRight, CgProfile } from 'react-icons/cg'
 import Config from '../config/Config'
 import DadosConta from '../dadosConta/DadosConta'
 import Sobre from '../sobre/Sobre'
 import { AuthContext } from '../../context/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+
 import MinhasReservas from '../minhasReservas/MinhasReservas'
 
 interface filhoProps{
@@ -18,7 +18,6 @@ function Menu({onClick}: filhoProps) {
   const[menuSobre, setMenuSobre] = useState<boolean>(false)
   const[menuMinhasReservas, setMenuMinhasReservas] = useState<boolean>(false)
 
-  const navigate = useNavigate()
 
 
   const{usuario, handleLogout} = useContext(AuthContext)
@@ -38,9 +37,7 @@ function Menu({onClick}: filhoProps) {
     setMenuSobre(!menuSobre)
   }
 
-  function ir(){
-    navigate('/login')
-  }
+ 
 
   function logout(){
     handleLogout()
