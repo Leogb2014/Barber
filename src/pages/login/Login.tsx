@@ -34,8 +34,8 @@ function Login() {
 
 
   return (
-    <div className='flex flex-col items-center  justify-center'>
-        <h1 className='text-4xl p-4'>Login</h1>
+    <div className='flex flex-col items-center p-28 justify-center'>
+        <h1 className='text-4xl'>Login</h1>
     <form onSubmit={login}>
             <div className='flex flex-col gap-2 '>
             <label htmlFor="email">Email</label>

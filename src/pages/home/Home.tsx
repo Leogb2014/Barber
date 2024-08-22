@@ -113,7 +113,7 @@ useEffect(() => {
     <>
  
 <div  className='flex items-center justify-center '>
-<h1 className='flex gap-1 font-serif lg:text-7xl text-white m-20 z-50 absolute'>
+<h1 className='hidden lg:block flex gap-1 font-serif lg:text-7xl text-white m-20 z-50 absolute'>
               <span>
                 {text}
               </span>

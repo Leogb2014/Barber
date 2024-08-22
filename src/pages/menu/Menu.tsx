@@ -93,8 +93,8 @@ function Menu({onClick}: filhoProps) {
             <div className='border-b-2 p-4 w-full'>
 
         <div className=' flex items-center gap-2 text-white'>
-          <CgProfile size={40}/> 
-          <button onClick={onClick} className='border rounded-xl px-3 py-1 bg-blue-700 text-white'>Logar</button>
+          <CgProfile size={40} /> 
+          <button onClick={onClick} className=' rounded-xl px-3 py-1 hover:bg-white hover:text-purple-700 font-semibold bg-purple-700 text-white'>Logar</button>
         </div>
         </div>
         

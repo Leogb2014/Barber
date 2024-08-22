@@ -26,7 +26,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
     <BrowserRouter>
     <Navbar/>
-    <div className='min-h-[80vh]'>
+    <div className='min-h-[90vh]'>
     <Routes>
       <Route path='/Home' element={<Home/>}/>
       <Route path='/' element={<Home/>}/>
@@ -36,7 +36,6 @@ function App() {
       <Route path='/config' element={<Config/>}/>
       <Route path='/minhasReservas' element={<MinhasReservas/>}/>
       <Route path='/cancelarReserva/:id' element={<ExcluirAgendamento/>}/>
-      <Route path='/reagendar/:id' element={<Reserva />}/>
       
     </Routes>
     </div>
