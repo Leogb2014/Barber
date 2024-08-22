@@ -122,7 +122,7 @@ useEffect(() => {
               </span>
           
             </h1>
-    <img className='opacity-55 h-56 w-full object-cover' src={foto2} alt="" />
+    <img className='opacity-40 h-56 w-full object-cover' src={foto2} alt="" />
 </div>
 
 <div className="container flex justify-center  mx-auto w-1/2 pt-10">

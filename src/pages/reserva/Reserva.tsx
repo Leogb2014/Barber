@@ -55,7 +55,7 @@ function Reserva(props: servicoProps) {
   const token = usuario.token
 
   const [loading, setLoading] = useState<boolean>(false)
-  const[confirmado, setConfirmado] = useState<boolean>(false)
+
 
   async function buscarPorId(id: string){
     try{

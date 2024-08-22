@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Agendamento from '../../models/Agendamento'
 
 import { Link} from 'react-router-dom'
-import { CgArrowLongLeft } from 'react-icons/cg'
-import Reserva from '../../pages/reserva/Reserva'
+
 
 interface cardAgendamentoProps{
   agendamento: Agendamento

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { CgArrowLongLeft, CgArrowLongRight, CgProfile } from 'react-icons/cg'
+import { CgArrowLongLeft,  CgProfile } from 'react-icons/cg'
 import Config from '../config/Config'
 import DadosConta from '../dadosConta/DadosConta'
 import Sobre from '../sobre/Sobre'
