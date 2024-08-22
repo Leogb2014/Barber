@@ -6,6 +6,7 @@ import foto3 from '../../assets/homem-em-um-salao-de-barbearia-fazendo-o-corte-d
 
 
 
+
 const images = [
     foto1,
     foto2,
@@ -16,6 +17,9 @@ export default function ImageSlider() {
   
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    
+  
+
     useEffect(() => {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -25,16 +29,31 @@ export default function ImageSlider() {
     }, []);
   
     return (
+      <>
+  
+          
       <div className="slider">
+
+      
+  
+
         {images.map((image, index) => (
+          <>
+              
+            
+          
+                
           <img
+          
             key={index}
             src={image}
             alt={`Slide ${index}`}
             className={`slider-image ${currentIndex === index ? 'fade-in' : 'fade-out'}`}
           />
+          </>
         ))}
       </div>
+      </>
     )
   }
 

@@ -19,16 +19,19 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import 'swiper/css/effect-coverflow'
 import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Agendamento from '../../models/Agendamento';
 import Servico from '../../models/Servico';
-import { cadastrar } from '../../service/Service';
+import { atualizar, buscarAgenda, cadastrar } from '../../service/Service';
+import { RotatingLines } from 'react-loader-spinner';
 
 interface servicoProps{
   servico: Servico
+  
 }
+
+
 
 function Reserva(props: servicoProps) {
 
@@ -42,13 +45,40 @@ function Reserva(props: servicoProps) {
   const[dia, setDia] = useState<string>('')
   const[hora, setHora] = useState('')
 
+  const { id } = useParams<{ id: string }>();
+
   const[reservar, setReservar] = useState<Agendamento>({} as Agendamento)
 
   const navigate = useNavigate()
 
-  const { usuario } = useContext(AuthContext)
+  const { usuario, handleLogout } = useContext(AuthContext)
   const token = usuario.token
 
+  const [loading, setLoading] = useState<boolean>(false)
+  const[confirmado, setConfirmado] = useState<boolean>(false)
+
+  async function buscarPorId(id: string){
+    try{
+        await buscarAgenda(`/agendamentos/${id}`, setReservar, {
+            headers: {
+                'Authorization': token
+            }
+        })
+    }catch(error: any){
+        if(error.toString().includes('403')){
+            alert('O token expirou, favor logar novamente')
+            handleLogout()
+        }
+
+    }
+}
+
+useEffect(() => {
+  
+  if (id !== undefined) {
+    buscarPorId(id);
+  }
+}, [id]);
 
 function mostrarHora(hora: string){
   setHora(hora)
@@ -84,12 +114,44 @@ useEffect(() => {
 }, [token]);
 
 
+
+
 async function cadastrarReserva(){
-  try{
-    await cadastrar('/agendamentos', reservar, setReservar, {headers: {Authorization: token}})
-  }catch(error){
-    alert("Erro ao reservar")
-  }
+  if(id!= undefined) {
+      try{
+      
+        await atualizar('/agendamentos', reservar, setReservar, {
+          headers: {
+            'Authorization': token
+          }
+        })
+       
+      }catch (error: any) {
+        if (error.toString().includes('403')) {
+          alert('O token expirou, favor logar novamente')
+          handleLogout()
+        }else {
+          alert('Erro ao atualizar o Produto');
+        }
+      }
+    }else{
+      try{
+        await cadastrar('/agendamentos', reservar, setReservar, {headers: {Authorization: token}})
+        retornar()
+      }catch(error){
+        alert("Erro ao reservar")
+      }
+
+    }
+
+
+}
+
+function retornar(){
+  setLoading(true)
+  const interval = setInterval(() => {
+    setLoading(false);
+  }, 7000);
 }
 
   return (
@@ -97,77 +159,87 @@ async function cadastrarReserva(){
     <body>
 
     
-    <div className=' bg-[#1c1c22] flex flex-col items-center justify-center text-white  border-black' >
-      <div>
-      <h1 className='text-2xl font-bold'>Escolha um horário</h1>
+<div className=' bg-[#1c1c22] flex flex-col items-center justify-center text-white  border-black' >
+  <div>
+  <h1 className='text-2xl font-bold'>{id !== undefined ? 'Escolha um nnovo horário' : 'Escolha um horário'}</h1>
 
-      </div>
-       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
-      <DemoContainer components={['DateCalendar', 'DateCalendar']}>
-        <DemoItem>
-          <DateCalendar  value={value} onChange={(newValue) => setValue(newValue)} 
-          className="custom-calendar" 
-               />
-        </DemoItem>
-      </DemoContainer>
-    </LocalizationProvider>
+  </div>
+   <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
+  <DemoContainer components={['DateCalendar', 'DateCalendar']}>
+    <DemoItem>
+      <DateCalendar  value={value} onChange={(newValue) => setValue(newValue)} 
+      className="custom-calendar" 
+           />
+    </DemoItem>
+  </DemoContainer>
+</LocalizationProvider>
 
 
-    </div>
-    <div className='border-t border-b  '>
-    <Swiper
-       modules={[Navigation, Pagination, Scrollbar, A11y]}
-       spaceBetween={30}
-       slidesPerView={4}
-       className='p-4  '
+</div>
+<div className='border-t border-b  '>
+<Swiper
+   modules={[Navigation, Pagination, Scrollbar, A11y]}
+   spaceBetween={30}
+   slidesPerView={4}
+   className='p-4  '
+
+>
+     
+  {times.map((item, numero) => (
+        <SwiperSlide key={numero} className="badge badge-primary badge-outline p-4"  ><button className='' onClick={() => mostrarHora(item)}>{item}</button></SwiperSlide>
+
+  ))}
+
+  
  
-    >
-         
-      {times.map((item, numero) => (
-            <SwiperSlide key={numero} className="badge badge-primary badge-outline p-4"  ><button className='' onClick={() => mostrarHora(item)}>{item}</button></SwiperSlide>
+ 
+</Swiper>
+</div>
 
-      ))}
+<div className=' border border-gray-700 rounded-md m-10  flex justify-between'>
+  <div className='flex flex-col items-start p-4 gap-2 mx-4 text-center'>
+    <div className=' rounded-2xl mt-2 text-black text-center font-bold bg-purple-600'>
+     
+    </div>
     
-      
-     
-     
-    </Swiper>
+      <div className='font-bold text-white'>
+        {props.servico.nome}
+    
+    </div>
+    <div className='text-purple-600 font-bold'>
+      {props.servico.preco}
     </div>
 
-    <div className=' border border-gray-700 rounded-md m-10  flex justify-between'>
-      <div className='flex flex-col items-start p-4 gap-2 mx-4 text-center'>
-        <div className=' rounded-2xl mt-2 text-black text-center font-bold bg-purple-600'>
-         
-        </div>
-        
-          <div className='font-bold text-white'>
-            {props.servico.nome}
-        
-        </div>
-        <div className='text-purple-600'>
-          {props.servico.preco}
-        </div>
-  
-      </div>
-  
-        <div className='border-l-2 p-7 border-gray-700 text-white font-semibold flex flex-col gap-2 text-center'>
-         {dia}
-         <div>
-          {hora}
-         </div>
-        </div>
-
   </div>
 
-  <div className='flex justify-center'>
-    <button onClick={cadastrarReserva} className='badge badge-primary text-white p-7 '>Agendar</button>
-  </div>
+    <div className='border-l-2 p-7 border-gray-700 text-white font-semibold flex flex-col gap-2 text-center'>
+     {dia}
+     <div>
+      {hora}
+     </div>
+    </div>
+
+</div>
+
+<div className='flex justify-center'>
+<button onClick={cadastrarReserva} className='badge badge-primary text-white p-7 '>
+{loading ? <RotatingLines
+            strokeColor="white"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="24"
+            visible={true}
+          /> : <span>Agendar</span>}
+            </button>
+</div>
 
 
 
 
 
-    </body>
+</body>
+
+
     </>
   )
 }

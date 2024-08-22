@@ -1,23 +1,27 @@
-import React, {  useContext, useState } from 'react'
+import React, {  ChangeEvent, useContext, useState} from 'react'
 
-import DatePicker from 'react-datepicker'
 import { AuthContext } from '../../context/AuthContext';
+import Usuario from '../../models/Usuario';
 
 function DadosConta() {
 
-    const [startDate, setStartDate] = useState<Date | null>(null);
+  const[abrir, setAbrir] = useState<boolean>(false)
+  const[usuarioMandar, setUsuarioMandar] = useState<Usuario>({} as Usuario)
+
+  function abrirInput(){
+    setAbrir(!abrir)
+  }
+   
+  function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    setUsuarioMandar({
+      ...usuario,
+      [e.target.name]: e.target.value,
+     
+    });
+
+  }
 
   const{usuario} = useContext(AuthContext)
-
-  
-
-    const handleDateChange = (date: Date | null) => {
-        if (date) {
-          setStartDate(date);
-        }
-      };
-
-
 
   return (
     <div className='flex flex-col '>
@@ -26,36 +30,33 @@ function DadosConta() {
 
         </div>
         <h2 className='text-black p-4 my-2 bg-gray-200'>Detalhes Pessoais</h2>
-    <div className='flex flex-col  items-center'>
-
-    <form className='w-full p-4 flex flex-col gap-4 '>
-        <div className='flex flex-col'>
-
+    
+        <div className='text-black p-4 border-b-2 flex justify-between items-center'>
+        <div>
+        <p>Nome</p>
+        {abrir === false ? <> <div className='flex justify-between'><div>{usuario.nome}</div> <div><button onClick={abrirInput} className='border-2 rounded-xl p-2 font-semibold'>
+            Editar
+        </button></div> </div> </> : <> <div>
+            <input
+                  type="text"
+                  name="nome"
+                  id="nome"
+                  value={usuarioMandar.nome}
+                  required
+                  placeholder='name'
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                  className="border-2 border-slate-700 rounded w-96 p-2" />
+             
+            </div> 
+            <button className='border-2 rounded-xl p-2 font-semibold'>
+            Salvar
+        </button></>}
         
-        <input type="text" name="nome" id="nome"
-        value={usuario.nome}
-        placeholder={usuario.nome}
-        className="border border-gray-300 rounded p-3 placeholder-[#756F6E] bg-transparent font-medium"
-        />
         </div>
-<div className='flex flex-col text-black'>
+        <div>
+        
 
-          
-              <DatePicker
-                id="start-date"
-                selected={startDate}
-                placeholderText='Data de nascimento'
-                onChange={handleDateChange}
-                className="border border-gray-300 rounded w-full p-3 placeholder-[#756F6E] bg-transparent font-medium"
-                
-              />
-
-
-</div>
-
-
-    </form>
-
+        </div>
     </div>
 
     <div className='text-black p-4 border-b-2 flex justify-between items-center'>
@@ -74,7 +75,10 @@ function DadosConta() {
     <div className='text-black p-4 flex justify-between'>
         <div >
         <p className=''>Número de telefone</p>
+        <div>
         {usuario.telefone}
+
+        </div>
 
         </div>
         <button className='border-2 rounded-xl p-2 font-semibold'>

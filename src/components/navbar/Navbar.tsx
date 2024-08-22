@@ -7,6 +7,7 @@ import Menu from '../../pages/menu/Menu'
 
 function Navbar() {
 
+  
   const[menuOpen, setMenuOpen] = useState<boolean>(false)
   const navigate = useNavigate()
 
@@ -20,19 +21,22 @@ function Navbar() {
 
   }
 
+
+
   return (
-    <div className='bg-black flex justify-between'>
+    <div className=' w-full bg-black flex justify-between'>
         <Link to={'/'} className='text-white m-5 text-4xl font-bold'>Barber</Link>
+
+      
         
         <div>
           <IoMenu color='white' size={50} className='m-4' onClick={abrir}/>
         </div>
         
-        <div className={`fixed top-20 right-0 h-full w-full bg-white  text-white z-50 transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}><Menu onClick={abrirLogin}/></div>
+        <div className={`fixed top-20 right-0 h-full  w-1/3 bg-[#1c1c22] text-white z-50 transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-200 ease-in-out`}><Menu onClick={abrirLogin}/></div>
 
      
    
-    
         
         
     </div>

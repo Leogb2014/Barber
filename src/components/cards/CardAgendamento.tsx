@@ -1,68 +1,66 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Agendamento from '../../models/Agendamento'
-import {  buscarAgenda } from '../../service/Service'
-import { AuthContext } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
 
+import { Link} from 'react-router-dom'
+import { CgArrowLongLeft } from 'react-icons/cg'
+import Reserva from '../../pages/reserva/Reserva'
 
 interface cardAgendamentoProps{
   agendamento: Agendamento
 }
 
-function CardAgendamento(props: cardAgendamentoProps) {
+function CardAgendamento({agendamento}: cardAgendamentoProps) {
 
-  const[agendamento, setAgendamento]  = useState<Agendamento[]>({} as Agendamento[])
-  const navigate = useNavigate()
+  const[abaReserva, setAbaReserva] = useState<boolean>(false)
 
-  const{usuario} = useContext(AuthContext)
-  const token = usuario.token
-
-
-
-  async function buscarAgendamentos(){
-    try{
-      if(token !== ''){
-        await buscarAgenda('/agendamentos', setAgendamento, {
-          headers: { Authorization: token },
-        })
-      }
-    }catch(error){
-      alert('erro ao buscar')
-    }
+  function fecharAba(){
+    setAbaReserva(!abaReserva)
   }
-
-  useEffect(() => {
-    if(token === ''){
-      navigate('/home')
-    }
-    buscarAgendamentos()
-  }, [token])
-
 
 
   return (
-    <div className=' border border-gray-700 rounded-md m-10  flex justify-between'>
-    <div className='flex flex-col gap-2 mx-4 text-center'>
+    <>
+    <div className=' border border-gray-700 rounded-md m-10 h-auto w-72 flex  justify-between'>
+
+    <div className='flex flex-col gap-2 mx-4 text-center items-center justify-center'>
       
-      <div className="badge badge-secondary font-bold mt-2">Confirmado</div>
+    <div className="badge badge-accent  font-bold">Confirmado</div>
       
       <div className='font-bold text-white'>
-      {props.agendamento.servico.nome}
-      </div>
-      <div className='flex gap-2 items-center' >
-        <img src="http://github.com/Leogb2014.png" className='rounded-full w-8' alt="" />
-        <p className='text-white'>{props.agendamento.usuario.nome}</p>
+      {agendamento.servico.nome}
       </div>
 
 
     </div>
 
       <div className='border-l-2 p-7 border-gray-700 text-white font-semibold text-center'>
-        <p>{props.agendamento.dia}</p>
-        <p>{props.agendamento.hora}</p>
-        <p>    </p>
+        
+
+        
+      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box  absolute mt-10 ml-3">
+ 
+  <li>
+    <details >
+      <summary></summary>
+      <ul>
+        <li><Link to={`/cancelarReserva/${agendamento.id}`}><a>Cancelar</a></Link></li>
+        <li>
+        <Link to={`/reagendar/${agendamento.id}`} ><a>Reagendar</a></Link>
+        </li>
+      </ul>
+    </details>
+  </li>
+
+</ul>
+
+        <p>{agendamento.dia}</p>
+        <p>{agendamento.hora}</p>
+        
       </div>
 </div>
+
+
+  </>
   )
 }
 

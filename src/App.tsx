@@ -9,6 +9,14 @@ import { ServicoProvider } from './context/ServicoContext';
 import CadastroUsuario from './pages/cadastroUsuario/CadastroUsuario';
 import Login from './pages/login/Login';
 import { AuthProvider } from './context/AuthContext';
+import Footer from './components/footer/Footer';
+import DadosConta from './pages/dadosConta/DadosConta';
+import Config from './pages/config/Config';
+import MinhasReservas from './pages/minhasReservas/MinhasReservas';
+import ExcluirAgendamento from './components/agendamento/excluirAgendamento/ExcluirAgendamento';
+import Reserva from './pages/reserva/Reserva';
+
+
 
 
 function App() {
@@ -18,12 +26,23 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
     <BrowserRouter>
     <Navbar/>
+    <div className='min-h-[80vh]'>
     <Routes>
       <Route path='/Home' element={<Home/>}/>
       <Route path='/' element={<Home/>}/>
       <Route path='/cadastro' element={<CadastroUsuario/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/minhaConta' element={<DadosConta/>}/>
+      <Route path='/config' element={<Config/>}/>
+      <Route path='/minhasReservas' element={<MinhasReservas/>}/>
+      <Route path='/cancelarReserva/:id' element={<ExcluirAgendamento/>}/>
+      <Route path='/reagendar/:id' element={<Reserva />}/>
+      
     </Routes>
+    </div>
+    
+  
+    <Footer/>
     </BrowserRouter>
 
     </LocalizationProvider>
