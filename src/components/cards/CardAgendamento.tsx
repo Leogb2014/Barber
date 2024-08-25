@@ -32,11 +32,16 @@ function CardAgendamento({agendamento}: cardAgendamentoProps) {
 
     </div>
 
-      <div className='border-l-2 p-7 border-gray-700 text-white font-semibold text-center'>
+      <div className='border-l-2 p-7 border-gray-700 text-white font-semibold flex flex-col items-center text-center'>
         
 
         
-      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box  absolute mt-10 ml-3">
+      
+
+        <p>{agendamento.dia}</p>
+        <p>{agendamento.hora}</p>
+        
+      <ul className="menu lg:menu-horizontal bg-base-200 absolute mt-11 rounded-box ">
  
   <li>
     <details >
@@ -51,11 +56,8 @@ function CardAgendamento({agendamento}: cardAgendamentoProps) {
   </li>
 
 </ul>
-
-        <p>{agendamento.dia}</p>
-        <p>{agendamento.hora}</p>
-        
       </div>
+
 </div>
 
 

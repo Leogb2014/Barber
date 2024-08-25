@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { CgArrowLongLeft,  CgProfile } from 'react-icons/cg'
 import Config from '../config/Config'
-import DadosConta from '../dadosConta/DadosConta'
 import Sobre from '../sobre/Sobre'
 import { AuthContext } from '../../context/AuthContext'
 
@@ -15,7 +14,7 @@ interface filhoProps{
 function Menu({onClick}: filhoProps) {
 
   const[menuConfig, setMenuConfig] = useState<boolean>(false)
-  const[menuConta, setMenuConta] = useState<boolean>(false)
+
   const[menuSobre, setMenuSobre] = useState<boolean>(false)
   const[menuMinhasReservas, setMenuMinhasReservas] = useState<boolean>(false)
 
@@ -30,9 +29,6 @@ function Menu({onClick}: filhoProps) {
     setMenuMinhasReservas(!menuMinhasReservas)
   }
 
-  function menuContaAbrir(){
-    setMenuConta(!menuConta)
-  }
 
   function menuSobreAbrir(){
     setMenuSobre(!menuSobre)
@@ -57,7 +53,7 @@ function Menu({onClick}: filhoProps) {
   </div>
   </div>
     <div className='border-b-2 p-4 w-full'>
-    <Link to={'/MinhaConta'} className=' flex items-center gap-2 text-white'>
+    <Link to={'/MinhaConta'} onClick={onClick} className=' flex items-center gap-2 text-white'>
       Detalhes da conta
     </Link>
 
@@ -94,7 +90,7 @@ function Menu({onClick}: filhoProps) {
 
         <div className=' flex items-center gap-2 text-white'>
           <CgProfile size={40} /> 
-          <button onClick={onClick} className=' rounded-xl px-3 py-1 hover:bg-white hover:text-purple-700 font-semibold bg-purple-700 text-white'>Logar</button>
+          <Link to={'/login'} onClick={onClick} className=' rounded-xl px-3 py-1 hover:bg-white hover:text-purple-700 font-semibold bg-purple-700 text-white'>Logar</Link>
         </div>
         </div>
         
@@ -126,9 +122,7 @@ function Menu({onClick}: filhoProps) {
 <div className='mb-2 border-b-2 w-full ml-2 p-2'>
 <CgArrowLongLeft color='white' size={30} onClick={menuConfigAbrir}/></div><Config/></div>
 
-<div className={`fixed top-0 right-0 h-full  w-full bg-[#1c1c22]  text-white z-0 transform ${menuConta ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
-<div className='mb-2 border-b-2 w-full ml-2 p-2'>
-<CgArrowLongLeft color='white' size={30} onClick={menuContaAbrir}/></div><DadosConta/></div>
+
 
 <div className={`fixed top-0 right-0 h-full w-full bg-[#1c1c22]  text-white z-0 transform ${menuSobre ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
 <div className='mb-2 border-b-2 w-full ml-2 p-2'>

@@ -5,6 +5,7 @@ export default interface UsuarioLogin{
     telefone: string,
     foto: string,
     senha: string,
+    role: string,
     token: string
 
 }

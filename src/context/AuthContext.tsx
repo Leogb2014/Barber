@@ -25,6 +25,7 @@ export function AuthProvider({children}: AuthProviderProps){
         telefone: "",
         foto: "",
         senha: "",
+        role: "",
         token: ""
     })
 
@@ -50,6 +51,7 @@ export function AuthProvider({children}: AuthProviderProps){
             telefone: "",
             foto: "",
             senha: "",
+            role: "",
             token: ""
         })
        

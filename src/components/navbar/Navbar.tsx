@@ -21,7 +21,7 @@ function Navbar() {
 
   function abrirLogin(){
       setMenuOpen(!menuOpen)
-      navigate('/login')
+      
   
   }
 
@@ -29,7 +29,7 @@ function Navbar() {
 
   return (
     <div className=' w-full  bg-transparent absolute flex justify-between'>
-        <Link to={'/'} className='text-white z-10 m-5 text-4xl font-bold'>Barber</Link>
+        <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
 
       
         

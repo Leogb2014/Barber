@@ -30,8 +30,16 @@ import { buscarAgenda } from '../../service/Service';
 import CardAgendamento from '../../components/cards/CardAgendamento';
 import foto2 from '../../assets/cadeiras-vintage-na-barbearia_155003-10150.jpg'
 import { Cursor, useTypewriter} from 'react-simple-typewriter'
+import Sobre from '../sobre/Sobre';
 
+import { motion } from 'framer-motion';
 
+const cardVariants = {
+    hiddenRight: { opacity: 0, x: '100%' },  // Inicia fora da tela à direita
+    visibleRight: { opacity: 1, x: 0 },      // Move para a posição original
+    hiddenLeft: { opacity: 0, x: '-100%' },  // Inicia fora da tela à esquerda
+    visibleLeft: { opacity: 1, x: 0 },       // Move para a posição original
+};
 
 function Home() {
   
@@ -113,7 +121,7 @@ useEffect(() => {
     <>
  
 <div  className='flex items-center justify-center '>
-<h1 className='hidden lg:block flex gap-1 font-serif lg:text-7xl text-white m-20 z-50 absolute'>
+<h1 className='hidden lg:block  gap-1 font-serif lg:text-7xl text-white m-20 z-50 absolute'>
               <span>
                 {text}
               </span>
@@ -125,26 +133,28 @@ useEffect(() => {
     <img className='opacity-40 h-56 w-full object-cover' src={foto2} alt="" />
 </div>
 
-<div className="container flex justify-center  mx-auto w-1/2 pt-10">
+<div className="container flex justify-center  mx-auto w-1/2 pt-10 ">
                   <FaMagnifyingGlass className='absolute mr-48 mt-4 '/>
                     <input
                         type="text"
                         placeholder="Buscar serviços..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="p-2 my-auto border-2 pl-10 rounded-full  text-black bg-[#e9f5db] "
+                        className="p-2 my-auto border-2 pl-10 rounded-full  text-black bg-[#e9f5db]  "
                     />
                 </div>
+               
 
-<div className='container rounded-xl mt-10 mx-auto  '>
+                
+
+<div className='container rounded-xl mt-10 lg:px-36 mx-auto  '>
   <div  className='  '>
 
-    
 <Swiper
        modules={[Navigation, Pagination, A11y]}
     
        spaceBetween={0}
-       pagination={{clickable: true}}
+       
     
        navigation
        breakpoints={{
@@ -153,7 +163,7 @@ useEffect(() => {
         
         },
         1024: {
-          slidesPerView: 4,
+          slidesPerView: 3,
         }
        }}
        
@@ -175,6 +185,28 @@ useEffect(() => {
 </Swiper>
 </div>
 
+<div className='p-32 flex gap-10' style={{ display: 'flex', justifyContent: 'center' }}>
+                <motion.div
+                initial="hiddenLeft"
+                animate="visibleLeft"
+                variants={cardVariants}
+                transition={{ duration: 0.75, ease: 'easeOut' }}
+                style={{ width: '300px', height: '200px', background: '' }}
+            >
+              <div className=' border-gray-700 shadow-2xl rounded-lg p-10'><Sobre/></div>
+            </motion.div>
+            <motion.div
+                 initial="hiddenRight"
+                animate="visibleRight"
+                variants={cardVariants}
+                transition={{ duration: 0.75, ease: 'easeOut' }}
+                style={{ width: '300px', height: '200px', background: '' }}
+            >
+              <div className='border border-gray-700 shadow-2xl rounded-lg p-10'><Sobre/></div>
+            </motion.div>
+            
+            </div>
+
 </div>
 <div className={`fixed top-0 right-0 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white z-50 transform ${abaReserva ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
   <div className='mb-2 border-b-2 w-full  p-2 items-center'>
@@ -187,7 +219,7 @@ useEffect(() => {
 <p className='border-b mb-4'>Reservas Ativas</p>
 
 
-    <div className='grid grid-cols-3'>
+    <div className='grid lg:grid-cols-3  justify-center'>
         {agendamento.map((item) => (
             <CardAgendamento key={item.id} agendamento={item}/>
         ))}
