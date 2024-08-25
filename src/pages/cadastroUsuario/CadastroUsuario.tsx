@@ -15,6 +15,7 @@ function CadastroUsuario() {
     email: '',
     telefone: '',
     foto: '',
+    role: '',
     senha: '',
   })
 
@@ -24,6 +25,7 @@ function CadastroUsuario() {
     email: '',
     telefone: '',
     foto: '',
+    role: '',
     senha: '',
   })
 
