@@ -3,6 +3,7 @@ export default interface UsuarioLogin{
     nome: string,
     email: string,
     telefone: string,
+    endereco: string,
     foto: string,
     senha: string,
     role: string,

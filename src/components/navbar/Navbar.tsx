@@ -25,26 +25,81 @@ function Navbar() {
   
   }
 
+  let navibarComponent
+
+  if(token !== '' && usuario.role === "ADMIN"){
+    navibarComponent = (
+      <div className=' w-full  bg-transparent absolute flex justify-between'>
+      <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
+
+    
+      
+      <div className='z-10 flex items-center '>
+      <Link to={'/criarConta'}>Cadastrar serviços</Link>
+        <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
+      </div>
+      
+     
+
+      <div className={`fixed top-0 right-0 z-10 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white  transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+        <div className='mb-2 border-b-2 w-full ml-2 p-2'>
+        <CgArrowLongLeft color='white' size={30} onClick={abrir}/></div><Menu onClick={abrirLogin}/></div>
+ 
+      
+      
+  </div>
+
+    )
+  }if(token !=='' && usuario.role === "USER"){
+    navibarComponent = (
+      <div className=' w-full  bg-transparent absolute flex justify-between'>
+      <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
+
+    
+      
+      <div className='z-10 flex items-center '>
+        <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
+      </div>
+      
+     
+
+      <div className={`fixed top-0 right-0 z-10 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white  transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+        <div className='mb-2 border-b-2 w-full ml-2 p-2'>
+        <CgArrowLongLeft color='white' size={30} onClick={abrir}/></div><Menu onClick={abrirLogin}/></div>
+ 
+      
+      
+  </div>
+    )
+  }if(token === ""){
+    navibarComponent = (
+      <div className=' w-full  bg-transparent absolute flex justify-between'>
+      <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
+
+    
+      
+      <div className='z-10 flex items-center '>
+        <Link to={'/criarConta'}>Listar empresa</Link>
+        <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
+      </div>
+      
+     
+
+      <div className={`fixed top-0 right-0 z-10 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white  transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+        <div className='mb-2 border-b-2 w-full ml-2 p-2'>
+        <CgArrowLongLeft color='white' size={30} onClick={abrir}/></div><Menu onClick={abrirLogin}/></div>
+ 
+      
+      
+  </div>
+    )
+  }
+
 
 
   return (
-    <div className=' w-full  bg-transparent absolute flex justify-between'>
-        <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
-
-      
-        
-        <div className='z-10 '>
-          <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
-        </div>
-        
-       
-
-        <div className={`fixed top-0 right-0 z-10 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white  transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
-          <div className='mb-2 border-b-2 w-full ml-2 p-2'>
-          <CgArrowLongLeft color='white' size={30} onClick={abrir}/></div><Menu onClick={abrirLogin}/></div>
-   
-        
-        
+    <div>
+      {navibarComponent}
     </div>
   )
 }

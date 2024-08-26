@@ -14,7 +14,10 @@ import DadosConta from './pages/dadosConta/DadosConta';
 import Config from './pages/config/Config';
 import MinhasReservas from './pages/minhasReservas/MinhasReservas';
 import ExcluirAgendamento from './components/agendamento/excluirAgendamento/ExcluirAgendamento';
-import Reserva from './pages/reserva/Reserva';
+
+import CadastroUsuarioAdmin from './pages/cadastroUsuario/CadastroUsuarioAdmin';
+import CadastroBarbearia from './pages/cadastroBarbearia/CadastroBarbearia';
+
 
 
 
@@ -36,6 +39,9 @@ function App() {
       <Route path='/config' element={<Config/>}/>
       <Route path='/minhasReservas' element={<MinhasReservas/>}/>
       <Route path='/cancelarReserva/:id' element={<ExcluirAgendamento/>}/>
+      <Route path='/criarConta' element={<CadastroUsuarioAdmin/>}/>
+      <Route path='/cadastroBarbearia' element={<CadastroBarbearia/>}/>
+    
       
     </Routes>
     </div>

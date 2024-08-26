@@ -1,78 +1,97 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { cadastrarUsuario } from '../../service/Service'
-import Usuario from '../../models/Usuario';
-import { useNavigate } from 'react-router-dom';
+import React, { ChangeEvent, useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Usuario from '../../models/Usuario'
+import {  cadastrarUsuario } from '../../service/Service'
+import { AuthContext } from '../../context/AuthContext'
+import UsuarioLogin from '../../models/UsuarioLogin'
 
-function CadastroUsuario() {
+function CadastroUsuarioAdmin() {
 
-  const[confirmaSenha, setConfirmaSenha] = useState<string>("")
+    const[confirmaSenha, setConfirmaSenha] = useState<string>("")
+    const{handleLogin} = useContext(AuthContext)
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  const[usuario, setUsuario] = useState<Usuario>({
-    id: 0,
-    nome: '',
-    email: '',
-    telefone: '',
-    endereco: '',
-    foto: '',
-    role: '',
-    senha: '',
-  })
+    const[usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({} as UsuarioLogin)
+  
+    const[usuarioBarber, setUsuarioBarber] = useState<Usuario>({
+      id: 0,
+      nome: '',
+      email: '',
+      telefone: '',
+      endereco: '',
+      foto: '',
+      role: 'ADMIN',
+      senha: '',
+    })
 
-  const[usuarioResposta, setUsuarioResposta] = useState<Usuario>({
-    id: 0,
-    nome: '',
-    email: '',
-    telefone: '',
-    endereco: '',
-    foto: '',
-    role: '',
-    senha: '',
-  })
-
-  function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-    setUsuario({
-      ...usuario,
-      [e.target.name]: e.target.value,
-     
-    });
-
-  }
-
-  function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
-    setConfirmaSenha(e.target.value)
-  }
-
-
-  async function cadastrarNovoUsuario(e: ChangeEvent<HTMLFormElement>){
-    e.preventDefault()
-    try{
-      await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuarioResposta)
-      alert('usuario cadastrado')
-    }catch(erro){
-      alert('Erro ao cadastrar usuário')
-    }
-  }
-
-  useEffect(() => {
-    if (usuarioResposta.id !== 0) {
-      back()
-    }
-  }, [usuarioResposta])
-
-  function back() {
-    navigate('/home')
-  }
-
+  
+    const[usuarioBarberResposta, setUsuarioBarberResposta] = useState<Usuario>({
+      id: 0,
+      nome: '',
+      email: '',
+      telefone: '',
+      endereco: '',
+      foto: '',
+      role: 'ADMIN',
+      senha: '',
+    })
 
     
+  
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+      setUsuarioBarber({
+        ...usuarioBarber,
+        [e.target.name]: e.target.value,
+       
+      }
+    );
+   
+  
+    }
+  
+    function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
+      setConfirmaSenha(e.target.value)
+      setUsuarioLogin({
+        id: 0,
+        nome: '',
+        email: usuarioBarber.email,
+        telefone: '',
+        endereco: '',
+        foto: '',
+        role: '',
+        senha: usuarioBarber.senha,
+        token: ''
+      })
+
+    }
 
 
+  
+  
+    async function cadastrarNovoUsuario(e: ChangeEvent<HTMLFormElement>){
+      e.preventDefault()
+      try{
+        await cadastrarUsuario("/usuarios/cadastrar", usuarioBarber, setUsuarioBarberResposta)
+        alert('usuario cadastrado')
+        logar()
+        
+      
+        }catch(erro){
+        alert('Erro ao cadastrar usuário')
+      }
+      navigate('/cadastroBarbearia')
+    }
+
+    function logar(){
+      handleLogin(usuarioLogin)
+    }
+
+   
 
   return (
     <div className='flex flex-col items-center  justify-center'>
-        <h1 className='text-5xl p-7'>Cadastro</h1>
+        <h1 className='text-5xl p-7'>Conta para empresa</h1>
       
         <form onSubmit={cadastrarNovoUsuario}>
             <div className='flex gap-2 flex-col'>
@@ -82,7 +101,7 @@ function CadastroUsuario() {
                   type="text"
                   name="nome"
                   id="nome"
-                  value={usuario.nome}
+                  value={usuarioBarber.nome}
                   required
                   placeholder='name'
                   onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
@@ -95,7 +114,7 @@ function CadastroUsuario() {
                   type="email"
                   name="email"
                   id="email"
-                  value={usuario.email}
+                  value={usuarioBarber.email}
                   placeholder='example@example.com'
                   required
                   onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
@@ -108,22 +127,24 @@ function CadastroUsuario() {
                 name="telefone"
                 id="telefone"
                 placeholder='(xx) xxxxx-xxxx'
-                value={usuario.telefone}
+                value={usuarioBarber.telefone}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                 required
                 className="border-2 border-slate-700 rounded w-96 p-2" />
             </div>
-            <label htmlFor="foto">foto</label>
+            
+        <label htmlFor="preco">foto</label>
             <div>
             <input 
             type="text"
              name="foto" 
              id="foto" 
              placeholder=''
-             value={usuario.foto}
+             value={usuarioBarber.foto}
              onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
              className="border-2 border-slate-700 rounded w-96 p-2" />
             </div>
+           
             <label htmlFor="senha">Senha</label>
             <div>
             <input 
@@ -131,7 +152,7 @@ function CadastroUsuario() {
             name="senha" 
             id="senha" 
             placeholder='' 
-            value={usuario.senha}
+            value={usuarioBarber.senha}
             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             required 
             className="border-2 border-slate-700 rounded w-96 p-2" />
@@ -165,4 +186,4 @@ function CadastroUsuario() {
   )
 }
 
-export default CadastroUsuario
+export default CadastroUsuarioAdmin

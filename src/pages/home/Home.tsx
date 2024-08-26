@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Suspense, useContext, useEffect, useState } from 'react'
 import CardServico from '../../components/cards/CardServico'
 import foto from "../../assets/cliente-fazendo-o-corte-de-cabelo-em-um-salao-de-barbearia_1303-20762.jpg"
 
@@ -26,13 +26,15 @@ import Login from '../login/Login'
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import Agendamento from '../../models/Agendamento';
 
-import { buscarAgenda } from '../../service/Service';
+import { buscar, buscarAgenda } from '../../service/Service';
 import CardAgendamento from '../../components/cards/CardAgendamento';
 import foto2 from '../../assets/cadeiras-vintage-na-barbearia_155003-10150.jpg'
 import { Cursor, useTypewriter} from 'react-simple-typewriter'
 import Sobre from '../sobre/Sobre';
 
 import { motion } from 'framer-motion';
+import CardBarbearias from '../../components/cards/CardBarbearias';
+import Barbearia from '../../models/Barbearia';
 
 const cardVariants = {
     hiddenRight: { opacity: 0, x: '100%' },  // Inicia fora da tela à direita
@@ -58,6 +60,22 @@ function Home() {
   
   const[agendamento, setAgendamento]  = useState<Agendamento[]>([])
 
+  
+  const[barbearias, setBarbearias] = useState<Barbearia[]>([])
+
+  async function buscarBarbearias(){
+    try{
+      await buscar("/barbearias", setBarbearias)
+    }catch(Error){
+      alert("Erro ao buscar barbearias")
+    }
+  }
+
+  useEffect(() => {
+    buscarBarbearias()
+  }, [barbearias.length])
+
+
 
 async function buscarAgendamentos(){
   try{
@@ -78,23 +96,20 @@ useEffect(() => {
   
 
   const[abaReserva, setAbaReserva] = useState<boolean>(false)
-  const[atributos, setAtributos] = useState<Servico>({
-    id: 0,
-    nome: '',
-    preco: ''
-  })
+  const[atributos, setAtributos] = useState<Servico>({} as Servico)
 
   const{ retornar, servico } = useContext(ServicoContext)
   const{usuario} = useContext(AuthContext)
   const token = usuario.token
 
   function abrirReserva(id: number){
-    const item = servico.find(item => item.id === id)
+    const item = servico.find(item => item.id === id )
     if(item){
       setAtributos({
         id: item.id,
         nome: item.nome,
-        preco: item.preco
+        preco: item.preco,
+        barbearia: item.barbearia
       })
       setAbaReserva(true)
     }
@@ -113,9 +128,10 @@ useEffect(() => {
   }
   
 
-  const filteredServicos = servico.filter((servico) =>
-     servico.nome.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBarbearias = barbearias.filter((barbearia) =>
+     barbearia.nome.toLowerCase().includes(searchTerm.toLowerCase())
 );
+
 
   return (
     <>
@@ -137,7 +153,7 @@ useEffect(() => {
                   <FaMagnifyingGlass className='absolute mr-48 mt-4 '/>
                     <input
                         type="text"
-                        placeholder="Buscar serviços..."
+                        placeholder="Buscar estabelecimentos..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="p-2 my-auto border-2 pl-10 rounded-full  text-black bg-[#e9f5db]  "
@@ -169,15 +185,17 @@ useEffect(() => {
        
  
     >
- {filteredServicos && filteredServicos.map((item) => (
+ {filteredBarbearias && filteredBarbearias.map((item) => (
   <>
 
   
   <div className=' ' >
-  <SwiperSlide  onClick={() => abrirReserva(item.id)}><CardServico key={item.id}  imagem={foto} tipo={item.nome} preco={item.preco}   /></SwiperSlide>  
+    
+  <SwiperSlide  onClick={() => abrirReserva(item.id)}><CardBarbearias key={item.id} item={item}/></SwiperSlide>  
 
   
   </div>
+  
   
   
   </>

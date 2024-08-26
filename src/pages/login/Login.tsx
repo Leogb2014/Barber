@@ -22,9 +22,10 @@ function Login() {
       }
 
       useEffect(() => {
-        if (usuario.token !== "") {
-            navigate('/home')
+        if (usuario.token !== "" ) {
+            navigate('/Home')
         }
+
     }, [usuario])
 
       function login(e: ChangeEvent<HTMLFormElement>){
