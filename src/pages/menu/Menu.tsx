@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthContext'
 
 import MinhasReservas from '../minhasReservas/MinhasReservas'
 import { Link } from 'react-router-dom'
+import { AuthBarbeariaContext } from '../../context/AuthBarbeariaContext'
 
 interface filhoProps{
   onClick: () => void
@@ -21,6 +22,7 @@ function Menu({onClick}: filhoProps) {
 
 
   const{usuario, handleLogout} = useContext(AuthContext)
+  const{barbearia, handleBarberLogout} = useContext(AuthBarbeariaContext)
 
   function menuConfigAbrir(){
     setMenuConfig(!menuConfig)
@@ -84,7 +86,54 @@ function Menu({onClick}: filhoProps) {
     </div>
   </div>)
 
-  }else{
+
+
+  }if(barbearia.token !== '') {
+    menuComponent = (<div className='flex flex-col items-start  gap-4 border-black container mx-auto  w-full h-screen '>
+        <div className='border-b-2 p-4 w-full'>
+
+  <div className=' flex items-center gap-2 text-white'>
+    <img src={barbearia.foto} alt="" className='w-16 rounded-full' />
+  
+  <p className='font-bold text-2xl'>{barbearia.nome}</p>
+  </div>
+  </div>
+    <div className='border-b-2 p-4 w-full'>
+    <Link to={'/MinhaConta'} onClick={onClick} className=' flex items-center gap-2 text-white'>
+      Detalhes da conta
+    </Link>
+
+    </div >
+    <div className='border-b-2 p-4 w-full text-white'>
+    <button onClick={menuMinhasReservasAbrir} className=' flex items-center gap-2 text-white'>
+      Minhas reservas 
+    </button>
+
+    </div>
+    <div className='border-b-2 p-4 w-full'>
+
+    <button onClick={menuConfigAbrir} className=' flex items-center gap-2 text-white'>
+      Configurações 
+    </button>
+    </div>
+    <div className='border-b-2 p-4 w-full '>
+    <button onClick={menuSobreAbrir} className=' flex items-center gap-2 text-white'>
+      Sobre o Barber 
+    </button>
+
+    </div>
+    <div className='border-b-2 p-4 w-full text-white'>
+    <button onClick={logout}>
+      Sair
+    </button>
+
+    </div>
+  </div>)
+
+  }
+  
+  
+  else{
    menuComponent = ( <div className='flex flex-col items-start  gap-4  container mx-auto  w-full '>
             <div className='border-b-2 p-4 w-full'>
 

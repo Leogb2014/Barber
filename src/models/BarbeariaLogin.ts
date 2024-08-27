@@ -1,4 +1,6 @@
-export default interface Barbearia{
+import Servico from "./Servico";
+
+export default interface BarbeariaLogin{
     id: number,
     nome: string,
     email: string,
@@ -6,5 +8,7 @@ export default interface Barbearia{
     senha: string,
     endereco: string,
     foto: string,
+    servico: Servico[]
+    token: string,
   
 }

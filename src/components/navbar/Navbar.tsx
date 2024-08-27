@@ -79,7 +79,7 @@ function Navbar() {
     
       
       <div className='z-10 flex items-center '>
-        <Link to={'/criarConta'}>Listar empresa</Link>
+        <Link to={'/loginBarbearia'}>Entrar como empresa</Link>
         <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
       </div>
       

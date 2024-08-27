@@ -65,7 +65,7 @@ function Home() {
 
   async function buscarBarbearias(){
     try{
-      await buscar("/barbearias", setBarbearias)
+      await buscar("/barbearias/all", setBarbearias)
     }catch(Error){
       alert("Erro ao buscar barbearias")
     }

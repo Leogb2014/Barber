@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 interface cardServicoProps{
-    imagem: string
     tipo: string
     preco: string
 }
@@ -16,11 +15,7 @@ function CardServico(props: cardServicoProps) {
     <>
 
 <div className="card bg-base-100 image-full w-56 shadow-xl">
-  <figure>
-    <img
-      src={props.imagem}
-      alt="Shoes" />
-  </figure>
+  
   <div className="card-body">
     <h2 className="card-title text-white">{props.tipo}</h2>
     

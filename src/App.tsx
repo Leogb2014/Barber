@@ -17,6 +17,9 @@ import ExcluirAgendamento from './components/agendamento/excluirAgendamento/Excl
 
 import CadastroUsuarioAdmin from './pages/cadastroUsuario/CadastroUsuarioAdmin';
 import CadastroBarbearia from './pages/cadastroBarbearia/CadastroBarbearia';
+import BarbeariaPage from './pages/barbeariaPage/BarbeariaPage';
+import LoginBarbearia from './pages/login/LoginBarbearia';
+import { AuthBarbeariaProvider } from './context/AuthBarbeariaContext';
 
 
 
@@ -25,6 +28,7 @@ import CadastroBarbearia from './pages/cadastroBarbearia/CadastroBarbearia';
 function App() {
   return (
     <AuthProvider>
+    <AuthBarbeariaProvider>
     <ServicoProvider>
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
     <BrowserRouter>
@@ -35,12 +39,14 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/cadastro' element={<CadastroUsuario/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/loginBarbearia' element={<LoginBarbearia/>}/>
       <Route path='/minhaConta' element={<DadosConta/>}/>
       <Route path='/config' element={<Config/>}/>
       <Route path='/minhasReservas' element={<MinhasReservas/>}/>
       <Route path='/cancelarReserva/:id' element={<ExcluirAgendamento/>}/>
       <Route path='/criarConta' element={<CadastroUsuarioAdmin/>}/>
       <Route path='/cadastroBarbearia' element={<CadastroBarbearia/>}/>
+      <Route path='/barbearia/:id' element={<BarbeariaPage/>}/>
     
       
     </Routes>
@@ -53,6 +59,7 @@ function App() {
     </LocalizationProvider>
 
     </ServicoProvider>
+   </AuthBarbeariaProvider>
     </AuthProvider>
   )
 }
