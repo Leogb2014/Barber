@@ -5,6 +5,7 @@ import Barbearia from '../../models/Barbearia';
 
 import { ServicoContext } from '../../context/ServicoContext';
 import CardServico from '../../components/cards/CardServico';
+import foto1 from "../../assets/bearded-mustached-barber-skull_225004-204.jpg"
 
 function BarbeariaPage() {
 
@@ -33,9 +34,12 @@ function BarbeariaPage() {
 
   return (
     <>
-    <div className='opacity-40 h-56 w-full object-cover'>{barbearia.foto}</div>
+    <div className='flex items-center ' > <div className='absolute mt-56 text-white ml-8 text-7xl'>{barbearia.nome}</div><img className='opacity-60 h-72 w-full object-cover ' src={foto1} alt="" /> </div>
+    
     {filteredServicos && filteredServicos.map((item) => (
-      <div><CardServico item={item} /></div>
+      
+      <div className='container mx-auto p-10 items-center justify-center '><CardServico item={item} key={item.id} /></div>
+      
     ))}
   
     

@@ -15,17 +15,23 @@ function CadastroBarbearia() {
     const[barbearia, setBarbearia] = useState<Barbearia>({
         id: 0,
         nome: '',
+        email: '',
+        telefone: '',
         endereco: '',
+        senha: '',
         foto: '',
-        usuario: usuario
+        
     })
 
     const[barbeariaResposta, setBarbeariaResposta] = useState<Barbearia>({
         id: 0,
         nome: '',
+        email: '',
+        telefone: '',
         endereco: '',
+        senha: '',
         foto: '',
-        usuario: usuario
+        
     })
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {

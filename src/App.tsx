@@ -21,6 +21,7 @@ import BarbeariaPage from './pages/barbeariaPage/BarbeariaPage';
 import LoginBarbearia from './pages/login/LoginBarbearia';
 import { AuthBarbeariaProvider } from './context/AuthBarbeariaContext';
 import CadastroServico from './components/cadastroServico/CadastroServico';
+import MeusServicos from './pages/meusServicos/MeusServicos';
 
 
 
@@ -44,6 +45,7 @@ function App() {
       <Route path='/minhaConta' element={<DadosConta/>}/>
       <Route path='/config' element={<Config/>}/>
       <Route path='/minhasReservas' element={<MinhasReservas/>}/>
+      <Route path='/meusServicos' element={<MeusServicos/>}/>
       <Route path='/cancelarReserva/:id' element={<ExcluirAgendamento/>}/>
       <Route path='/criarConta' element={<CadastroUsuarioAdmin/>}/>
       <Route path='/cadastroBarbearia' element={<CadastroBarbearia/>}/>

@@ -31,14 +31,15 @@ export function AuthBarbeariaProvider({children}: AuthBarbeariaProviderProps){
         token: ""
     })
 
-    const[barbeariaCadastro, setBarbeariaCadastro] = useState<any>({
+    const[barbeariaCadastro, setBarbeariaCadastro] = useState<Barbearia>({
         id: barbearia.id,
         nome: barbearia.nome,
         email: barbearia.email,
         telefone: barbearia.telefone,
         endereco: barbearia.endereco,
         foto: barbearia.foto,
-        senha:barbearia.senha,    
+        senha:barbearia.senha,
+        
     })
 
     const[isBarberLoading, setIsBarberLoading] = useState(false)

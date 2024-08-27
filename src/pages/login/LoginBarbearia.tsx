@@ -84,7 +84,7 @@ function LoginBarbearia() {
             <p>
             Ainda não tem uma conta?{' '}
             <Link to="/cadastroBarbearia" className="text-purple-400 hover:underline font-bold">
-              Cadastre-se
+              Cadastre sua barbearia
             </Link>
           </p>
 

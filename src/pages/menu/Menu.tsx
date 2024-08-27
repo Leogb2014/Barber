@@ -105,17 +105,12 @@ function Menu({onClick}: filhoProps) {
 
     </div >
     <div className='border-b-2 p-4 w-full text-white'>
-    <button onClick={menuMinhasReservasAbrir} className=' flex items-center gap-2 text-white'>
-      Minhas reservas 
-    </button>
+    <Link to={'meusServicos'} onClick={onClick} className=' flex items-center gap-2 text-white'>
+      Meus Serviços
+    </Link>
 
     </div>
-    <div className='border-b-2 p-4 w-full'>
-
-    <button onClick={menuConfigAbrir} className=' flex items-center gap-2 text-white'>
-      Configurações 
-    </button>
-    </div>
+  
     <div className='border-b-2 p-4 w-full '>
     <button onClick={menuSobreAbrir} className=' flex items-center gap-2 text-white'>
       Sobre o Barber 

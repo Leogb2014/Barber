@@ -1,6 +1,5 @@
-import React, { Suspense, useContext, useEffect, useState } from 'react'
-import CardServico from '../../components/cards/CardServico'
-import foto from "../../assets/cliente-fazendo-o-corte-de-cabelo-em-um-salao-de-barbearia_1303-20762.jpg"
+import React, {  useContext, useEffect, useState } from 'react'
+import foto from "../../assets/jovem-na-barbearia-aparando-cabelo_1303-26254.avif"
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination,  A11y, } from 'swiper/modules';
@@ -16,13 +15,9 @@ import 'swiper/css/effect-flip'
 import 'swiper/css/effect-cube'
 import 'swiper/css/effect-cards'
 
-import { CgArrowLongLeft } from 'react-icons/cg'
-import Reserva from '../reserva/Reserva'
 import { ServicoContext } from '../../context/ServicoContext'
-
-import Servico from '../../models/Servico'
 import { AuthContext } from '../../context/AuthContext'
-import Login from '../login/Login'
+
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import Agendamento from '../../models/Agendamento';
 
@@ -96,27 +91,12 @@ useEffect(() => {
 }, [agendamento.length])
   
 
- 
-  const[atributos, setAtributos] = useState<Servico>({} as Servico)
 
   const{ retornar, servico } = useContext(ServicoContext)
   const{usuario} = useContext(AuthContext)
   const token = usuario.token
 
-  function abrirReserva(id: number){
-    const item = servico.find(item => item.id === id )
-    if(item){
-      setAtributos({
-        id: item.id,
-        nome: item.nome,
-        preco: item.preco,
-        barbearia: item.barbearia
-      })
-      setAbaReserva(true)
-    }
-      
-  
-  }
+
 
 
   useEffect(() => {
@@ -124,9 +104,7 @@ useEffect(() => {
   }, [])
 
 
-  function fecharAba(){
-    setAbaReserva(false)
-  }
+  
   
 
   const filteredBarbearias = barbearias.filter((barbearia) =>
@@ -204,7 +182,7 @@ useEffect(() => {
 </Swiper>
 </div>
 
-<div className='p-32 flex gap-10' style={{ display: 'flex', justifyContent: 'center' }}>
+<div className='p-32 flex gap-20' style={{ display: 'flex', justifyContent: 'center' }}>
                 <motion.div
                 initial="hiddenLeft"
                 animate="visibleLeft"
@@ -212,7 +190,7 @@ useEffect(() => {
                 transition={{ duration: 0.75, ease: 'easeOut' }}
                 style={{ width: '300px', height: '200px', background: '' }}
             >
-              <div className=' border-gray-700 shadow-2xl rounded-lg p-10'><Sobre/></div>
+              <div className=' rounded-lg p-10'><Sobre/></div>
             </motion.div>
             <motion.div
                  initial="hiddenRight"
@@ -221,7 +199,7 @@ useEffect(() => {
                 transition={{ duration: 0.75, ease: 'easeOut' }}
                 style={{ width: '300px', height: '200px', background: '' }}
             >
-              <div className='border border-gray-700 shadow-2xl rounded-lg p-10'><Sobre/></div>
+              <div className='rounded-lg p-10'><img className='h-96 object-cover mix-blend-lighten' src={foto} alt="" /></div>
             </motion.div>
             
             </div>
@@ -230,7 +208,7 @@ useEffect(() => {
 
  
  
-<div className='pt-6 px-16 pb-1 container mx-auto flex flex-col justify-center '>
+<div className='pt-6 px-16 m-40 pb-1 container mx-auto flex flex-col justify-center '>
 <p className='border-b mb-4'>Reservas Ativas</p>
 
 

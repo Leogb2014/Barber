@@ -25,17 +25,26 @@ function CardServico({item}: cardServicoProps) {
   return (
     <>
 
-<div className="card bg-base-100 image-full w-56 shadow-xl">
-  
-  <div className="card-body">
-    <h2 className="card-title text-white">{item.nome}</h2>
+<div  className='flex w-96 flex-col items-center rounded-xl border border-slate-700 shadow-2xl'>
+      <div className='flex'>
     
-    <div className="card-actions justify-between items-center ">
-      <p className='text-white '>{item.preco}</p>
-      <button onClick={fecharAba} className="btn btn-primary bg-purple-600 hover:bg-white hover:text-purple-600 text-white">Reservar</button>
+        <div className='pt-4 flex flex-col gap-4 items-start'>
+        <p className='font-bold text-white '>
+            {item.nome}
+        </p>
+        
+       
+
+        <div className='text-white w-64 flex pr-4 pb-4 justify-between '>
+        <p className='text-purple-500 font-semibold'> {item.preco}</p>
+        <button onClick={fecharAba} className=' font-semibold  text-white px-2 text-sm border rounded-xl  hover:bg-white hover:text-black' >Reservar</button>
+
+      </div>
+         </div>
+
+        </div>
     </div>
-  </div>
-</div>
+
 
 <div className={`fixed top-0 right-0 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white z-50 transform ${abaReserva ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
   <div className='mb-2 border-b-2 w-full  p-2 items-center'>

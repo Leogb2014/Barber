@@ -80,7 +80,7 @@ function Navbar() {
 
     
       
-      <div className='z-10 flex items-center '>
+      <div className='z-10 flex items-center text-white '>
         <Link to={'/loginBarbearia'}>Entrar como empresa</Link>
         <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
       </div>

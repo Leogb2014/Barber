@@ -1,5 +1,6 @@
 import React, { } from 'react'
 import Barbearia from '../../models/Barbearia'
+import foto1 from '../../assets/bearded-mustached-barber-skull_225004-204.jpg'
 
 
 interface barbeariaProps{
@@ -10,13 +11,13 @@ function CardBarbearias({item}: barbeariaProps) {
 
 
   return (
-    <div className="card glass w-96">
+    <div className="card glass w-96 h-96">
   <figure>
     <img
-      src={item.foto}
-      alt="car!" />
+      src={foto1}
+      alt="car!"  />
   </figure>
-  <div className="card-body">
+  <div className="card-body h-40 text-white">
     <h2 className="card-title">{item.nome}</h2>
     <p>{item.endereco}</p>
     <div className="card-actions justify-end">
