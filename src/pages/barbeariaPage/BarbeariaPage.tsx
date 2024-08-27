@@ -22,7 +22,6 @@ function BarbeariaPage() {
     }
 
   
-
     useEffect(() => {
       buscarPorId()
     }, [])
@@ -34,10 +33,9 @@ function BarbeariaPage() {
 
   return (
     <>
-    
     <div className='opacity-40 h-56 w-full object-cover'>{barbearia.foto}</div>
     {filteredServicos && filteredServicos.map((item) => (
-      <div><CardServico tipo={item.nome} preco={item.preco}/></div>
+      <div><CardServico item={item} /></div>
     ))}
   
     

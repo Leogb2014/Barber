@@ -136,7 +136,7 @@ async function cadastrarReserva(){
       }
     }else{
       try{
-        await cadastrar('/agendamentos', reservar, setReservar, {headers: {Authorization: token}})
+        await cadastrar('/agendamentos', reservar, {headers: {Authorization: token}})
         retornar()
       }catch(error){
         alert("Erro ao reservar")

@@ -35,6 +35,7 @@ import Sobre from '../sobre/Sobre';
 import { motion } from 'framer-motion';
 import CardBarbearias from '../../components/cards/CardBarbearias';
 import Barbearia from '../../models/Barbearia';
+import { Link } from 'react-router-dom';
 
 const cardVariants = {
     hiddenRight: { opacity: 0, x: '100%' },  // Inicia fora da tela à direita
@@ -95,7 +96,7 @@ useEffect(() => {
 }, [agendamento.length])
   
 
-  const[abaReserva, setAbaReserva] = useState<boolean>(false)
+ 
   const[atributos, setAtributos] = useState<Servico>({} as Servico)
 
   const{ retornar, servico } = useContext(ServicoContext)
@@ -191,7 +192,7 @@ useEffect(() => {
   
   <div className=' ' >
     
-  <SwiperSlide  onClick={() => abrirReserva(item.id)}><CardBarbearias key={item.id} item={item}/></SwiperSlide>  
+  <SwiperSlide  > <Link  to={`/barbeariaPage/${item.id}`}><CardBarbearias key={item.id} item={item}/></Link> </SwiperSlide>  
 
   
   </div>
@@ -226,11 +227,7 @@ useEffect(() => {
             </div>
 
 </div>
-<div className={`fixed top-0 right-0 h-full w-full lg:w-1/3 bg-[#1c1c22] text-white z-50 transform ${abaReserva ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
-  <div className='mb-2 border-b-2 w-full  p-2 items-center'>
-  <CgArrowLongLeft color='white' size={30} onClick={fecharAba}/></div>{token !== '' ? <Reserva  servico={atributos}   /> : <Login/>}
-  
-  </div>
+
  
  
 <div className='pt-6 px-16 pb-1 container mx-auto flex flex-col justify-center '>

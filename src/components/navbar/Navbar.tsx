@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Menu from '../../pages/menu/Menu'
 import { AuthContext } from '../../context/AuthContext'
 import { CgArrowLongLeft } from 'react-icons/cg'
+import { AuthBarbeariaContext } from '../../context/AuthBarbeariaContext'
 
 
 function Navbar() {
@@ -12,6 +13,7 @@ function Navbar() {
   const[menuOpen, setMenuOpen] = useState<boolean>(false)
   const navigate = useNavigate()
   const {usuario} = useContext(AuthContext)
+  const {barbearia} = useContext(AuthBarbeariaContext)
   const token = usuario.token
 
 
@@ -27,7 +29,7 @@ function Navbar() {
 
   let navibarComponent
 
-  if(token !== '' && usuario.role === "ADMIN"){
+  if(barbearia.token !== '' ){
     navibarComponent = (
       <div className=' w-full  bg-transparent absolute flex justify-between'>
       <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
@@ -35,7 +37,7 @@ function Navbar() {
     
       
       <div className='z-10 flex items-center '>
-      <Link to={'/criarConta'}>Cadastrar serviços</Link>
+      <Link to={'/cadastroServico'}>Cadastrar serviços</Link>
         <IoMenu color='white' size={50} className='m-4 z-10 ' onClick={abrir}/>
       </div>
       
@@ -50,7 +52,7 @@ function Navbar() {
   </div>
 
     )
-  }if(token !=='' && usuario.role === "USER"){
+  }if(token !=='' ){
     navibarComponent = (
       <div className=' w-full  bg-transparent absolute flex justify-between'>
       <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
@@ -71,7 +73,7 @@ function Navbar() {
       
   </div>
     )
-  }if(token === ""){
+  }if(token === "" && barbearia.token === ""){
     navibarComponent = (
       <div className=' w-full  bg-transparent absolute flex justify-between'>
       <Link to={'/'} className='text-white z-10 m-5 text-4xl font-'>Barber</Link>
