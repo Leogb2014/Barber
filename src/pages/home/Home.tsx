@@ -199,7 +199,7 @@ useEffect(() => {
                 transition={{ duration: 0.75, ease: 'easeOut' }}
                 style={{ width: '300px', height: '200px', background: '' }}
             >
-              <div className='rounded-lg p-10'><img className='h-96 object-cover mix-blend-lighten' src={foto} alt="" /></div>
+              <div className='rounded-lg p-10'><img className='h-96 object-cover mix-blend-lighten  ' src={foto} alt="" /></div>
             </motion.div>
             
             </div>

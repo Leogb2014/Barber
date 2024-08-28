@@ -1,14 +1,12 @@
 import { createContext, ReactNode, useState } from "react";
 import { login } from "../service/Service";
 import BarbeariaLogin from "../models/BarbeariaLogin";
-import Barbearia from "../models/Barbearia";
 
 interface AuthBarbeariaContextProps{
     barbearia: BarbeariaLogin,
     handleBarberLogout(): void
     handleBarberLogin(barbearia: BarbeariaLogin): Promise<void>
-    isBarberLoading: boolean
-    barbeariaCadastro: Barbearia
+    isBarberLoading: boolean 
 }
 
 interface AuthBarbeariaProviderProps{
@@ -31,17 +29,7 @@ export function AuthBarbeariaProvider({children}: AuthBarbeariaProviderProps){
         token: ""
     })
 
-    const[barbeariaCadastro, setBarbeariaCadastro] = useState<Barbearia>({
-        id: barbearia.id,
-        nome: barbearia.nome,
-        email: barbearia.email,
-        telefone: barbearia.telefone,
-        endereco: barbearia.endereco,
-        foto: barbearia.foto,
-        senha:barbearia.senha,
-        
-    })
-
+    
     const[isBarberLoading, setIsBarberLoading] = useState(false)
 
     async function handleBarberLogin(userLogin: BarbeariaLogin){
@@ -72,7 +60,7 @@ export function AuthBarbeariaProvider({children}: AuthBarbeariaProviderProps){
     }
 
     return(
-        <AuthBarbeariaContext.Provider value={{barbearia, barbeariaCadastro, handleBarberLogin, handleBarberLogout, isBarberLoading}}>
+        <AuthBarbeariaContext.Provider value={{barbearia, handleBarberLogin, handleBarberLogout, isBarberLoading}}>
             {children}
         </AuthBarbeariaContext.Provider>
 

@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import Barbearia from '../../models/Barbearia'
-import { ArrowRightIcon } from '@mui/x-date-pickers'
 import { cadastrar } from '../../service/Service'
 import { useNavigate } from 'react-router-dom'
 
@@ -83,8 +82,9 @@ function CadastroBarbearia() {
 
   return (
     <div className='flex flex-col items-center  justify-center h-screen '>
-        <h1>Informações do estabelecimento</h1>
+        <h1 className='text-5xl p-10'>Informações do estabelecimento</h1>
     <form onSubmit={cadastrarBarbearia} >
+        <div className='flex flex-col gap-2'>
     <label htmlFor="nome">Nome da barbearia</label>
             <div>
             <input
@@ -172,10 +172,11 @@ function CadastroBarbearia() {
             required 
             className="border-2 border-slate-700 rounded w-96 p-2" />
             </div>
-        <div>
-            <button type='submit'>
-                Avançar <ArrowRightIcon/>
+        <div className='flex items-center justify-center p-4 '>
+            <button className='border rounded-lg px-4 py-2' type='submit'>
+                Cadastrar 
             </button>
+        </div>
         </div>
     </form>
     </div>

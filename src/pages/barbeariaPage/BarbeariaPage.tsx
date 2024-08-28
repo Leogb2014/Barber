@@ -28,20 +28,20 @@ function BarbeariaPage() {
     }, [])
 
 
-    const filteredServicos = servico.filter((item) => item.barbearia.id === barbearia.id)
+    const filteredServicos = servico.filter((item) => item.barbearia?.id === barbearia.id)
    
 
 
   return (
     <>
     <div className='flex items-center ' > <div className='absolute mt-56 text-white ml-8 text-7xl'>{barbearia.nome}</div><img className='opacity-60 h-72 w-full object-cover ' src={foto1} alt="" /> </div>
-    
+    <div className='container mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 items-center justify-center'>
     {filteredServicos && filteredServicos.map((item) => (
       
-      <div className='container mx-auto p-10 items-center justify-center '><CardServico item={item} key={item.id} /></div>
+      <div className='container mx-auto  items-center justify-center '><CardServico item={item} key={item.id} /></div>
       
     ))}
-  
+  </div>
     
     </>
   )

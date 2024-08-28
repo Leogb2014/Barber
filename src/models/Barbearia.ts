@@ -5,7 +5,6 @@ export default interface Barbearia{
     telefone: string,
     senha: string,
     endereco: string,
-   
     foto: string,
   
 }

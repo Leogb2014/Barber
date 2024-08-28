@@ -44,7 +44,7 @@ function Menu({onClick}: filhoProps) {
 
   let menuComponent
 
-  if(usuario.token !== '') {
+  if(usuario.token !== '' && barbearia.token === '') {
     menuComponent = (<div className='flex flex-col items-start  gap-4 border-black container mx-auto  w-full h-screen '>
         <div className='border-b-2 p-4 w-full'>
 
@@ -88,7 +88,7 @@ function Menu({onClick}: filhoProps) {
 
 
 
-  }if(barbearia.token !== '') {
+  }if(barbearia.token !== '' && usuario.token === '') {
     menuComponent = (<div className='flex flex-col items-start  gap-4 border-black container mx-auto  w-full h-screen '>
         <div className='border-b-2 p-4 w-full'>
 
@@ -127,8 +127,7 @@ function Menu({onClick}: filhoProps) {
 
   }
   
-  
-  else{
+  if(usuario.token === '' && barbearia.token === ''){
    menuComponent = ( <div className='flex flex-col items-start  gap-4  container mx-auto  w-full '>
             <div className='border-b-2 p-4 w-full'>
 

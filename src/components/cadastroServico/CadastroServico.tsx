@@ -1,40 +1,43 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
 import Servico from '../../models/Servico'
-import { cadastrar } from '../../service/Service';
+import { cadastrarServico } from '../../service/Service';
 import { AuthBarbeariaContext } from '../../context/AuthBarbeariaContext';
+import { useNavigate } from 'react-router-dom';
 
 function CadastroServico() {
 
  
-    const{barbearia, barbeariaCadastro} = useContext(AuthBarbeariaContext)
+    const{barbearia} = useContext(AuthBarbeariaContext)
     const token = barbearia.token
+    const navigate = useNavigate()
 
     const[servico, setServico] = useState<Servico>({
         id: 0,
         nome: '',
         preco: '',
-        barbearia: barbeariaCadastro
+        barbearia: null
     })
 
-
-    
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setServico({
           ...servico,
           [e.target.name]: e.target.value,
+          barbearia: barbearia
          
         });
     
       }
 
-      async function cadastrarServico(e: ChangeEvent<HTMLFormElement>){
+      async function cadastrar(e: ChangeEvent<HTMLFormElement>){
         e.preventDefault()
         try{
-            await cadastrar("/servicos", servico, {
+            await cadastrarServico("/servicos", servico, {
                 headers: {
                     'Authorization': token
                 }
             })
+            alert('Serviço cadastrado')
+            navigate('/meusServicos')
         }catch(error){
             alert("erro ao cadastrar serviço")
         }
@@ -46,9 +49,9 @@ function CadastroServico() {
 
 
   return (
-    <div className='flex flex-col items-center p-28 justify-center'>
-    <h1 className='text-4xl'>Login</h1>
-<form onSubmit={cadastrarServico}>
+    <div className='flex flex-col items-center p-28 gap-10 justify-center'>
+    <h1 className='text-4xl'>Cadastro de Serviço</h1>
+<form onSubmit={cadastrar}>
         <div className='flex flex-col gap-2 '>
         <label htmlFor="nome">Nome do Serviço</label>
         <div>
