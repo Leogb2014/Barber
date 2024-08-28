@@ -11,7 +11,6 @@ function Navbar() {
 
   
   const[menuOpen, setMenuOpen] = useState<boolean>(false)
-  const navigate = useNavigate()
   const {usuario} = useContext(AuthContext)
   const {barbearia} = useContext(AuthBarbeariaContext)
   const token = usuario.token

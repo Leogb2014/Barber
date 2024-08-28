@@ -23,7 +23,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Agendamento from '../../models/Agendamento';
 import Servico from '../../models/Servico';
-import { atualizar, buscarAgenda, cadastrar } from '../../service/Service';
+import { atualizar, buscarAgenda, cadastrar, cadastrarReserva } from '../../service/Service';
 import { RotatingLines } from 'react-loader-spinner';
 
 interface servicoProps{
@@ -56,29 +56,6 @@ function Reserva(props: servicoProps) {
 
   const [loading, setLoading] = useState<boolean>(false)
 
-
-  async function buscarPorId(id: string){
-    try{
-        await buscarAgenda(`/agendamentos/${id}`, setReservar, {
-            headers: {
-                'Authorization': token
-            }
-        })
-    }catch(error: any){
-        if(error.toString().includes('403')){
-            alert('O token expirou, favor logar novamente')
-            handleLogout()
-        }
-
-    }
-}
-
-useEffect(() => {
-  
-  if (id !== undefined) {
-    buscarPorId(id);
-  }
-}, [id]);
 
 function mostrarHora(hora: string){
   setHora(hora)
@@ -116,27 +93,9 @@ useEffect(() => {
 
 
 
-async function cadastrarReserva(){
-  if(id!= undefined) {
+async function cadastrar(){
       try{
-      
-        await atualizar('/agendamentos', reservar, setReservar, {
-          headers: {
-            'Authorization': token
-          }
-        })
-       
-      }catch (error: any) {
-        if (error.toString().includes('403')) {
-          alert('O token expirou, favor logar novamente')
-          handleLogout()
-        }else {
-          alert('Erro ao atualizar o Produto');
-        }
-      }
-    }else{
-      try{
-        await cadastrar('/agendamentos', reservar, {headers: {Authorization: token}})
+        await cadastrarReserva('/agendamentos', reservar, {headers: {Authorization: token}})
         retornar()
       }catch(error){
         alert("Erro ao reservar")
@@ -144,8 +103,6 @@ async function cadastrarReserva(){
 
     }
 
-
-}
 
 function retornar(){
   setLoading(true)
@@ -222,7 +179,7 @@ function retornar(){
 </div>
 
 <div className='flex justify-center'>
-<button onClick={cadastrarReserva} className='badge badge-primary text-white p-7 '>
+<button onClick={cadastrar} className='badge badge-primary text-white p-7 '>
 {loading ? <RotatingLines
             strokeColor="white"
             strokeWidth="5"

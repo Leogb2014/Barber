@@ -2,10 +2,12 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { cadastrarUsuario } from '../../service/Service'
 import Usuario from '../../models/Usuario';
 import { useNavigate } from 'react-router-dom';
+import { RotatingLines } from 'react-loader-spinner';
 
 function CadastroUsuario() {
 
   const[confirmaSenha, setConfirmaSenha] = useState<string>("")
+  const[Loading, setLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
@@ -151,7 +153,16 @@ function CadastroUsuario() {
 
             </div>
              <div className='flex items-center justify-center p-6'>
-            <button className='border rounded-xl px-4 py-2 font-semibold hover:bg-white' type='submit'>Cadastrar</button>
+            <button className='border rounded-xl px-4 py-2 font-semibold hover:bg-white' type='submit'>
+            {Loading ? <RotatingLines
+            strokeColor="white"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="24"
+            visible={true}
+          /> :
+            <span>Entrar</span>}
+            </button>
 
              </div>
 

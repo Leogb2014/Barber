@@ -56,6 +56,8 @@ export function AuthProvider({children}: AuthProviderProps){
             role: "",
             token: ""
         })
+        alert("Deslogado com sucesso")
+        
        
     }
 

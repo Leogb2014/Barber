@@ -36,10 +36,13 @@ function Menu({onClick}: filhoProps) {
     setMenuSobre(!menuSobre)
   }
 
- 
-
   function logout(){
     handleLogout()
+  }
+
+  function logoutBarber(){
+    handleBarberLogout()
+
   }
 
   let menuComponent
@@ -99,7 +102,7 @@ function Menu({onClick}: filhoProps) {
   </div>
   </div>
     <div className='border-b-2 p-4 w-full'>
-    <Link to={'/MinhaConta'} onClick={onClick} className=' flex items-center gap-2 text-white'>
+    <Link to={'/minhaContaBarbearia'} onClick={onClick} className=' flex items-center gap-2 text-white'>
       Detalhes da conta
     </Link>
 
@@ -118,7 +121,7 @@ function Menu({onClick}: filhoProps) {
 
     </div>
     <div className='border-b-2 p-4 w-full text-white'>
-    <button onClick={logout}>
+    <button onClick={logoutBarber}>
       Sair
     </button>
 

@@ -21,6 +21,7 @@ import LoginBarbearia from './pages/login/LoginBarbearia';
 import { AuthBarbeariaProvider } from './context/AuthBarbeariaContext';
 import CadastroServico from './components/cadastroServico/CadastroServico';
 import MeusServicos from './pages/meusServicos/MeusServicos';
+import DadosBarbearia from './pages/dadosConta/DadosBarbearia';
 
 
 
@@ -42,6 +43,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/loginBarbearia' element={<LoginBarbearia/>}/>
       <Route path='/minhaConta' element={<DadosConta/>}/>
+      <Route path='/minhaContaBarbearia' element={<DadosBarbearia/>}/>
       <Route path='/config' element={<Config/>}/>
       <Route path='/minhasReservas' element={<MinhasReservas/>}/>
       <Route path='/meusServicos' element={<MeusServicos/>}/>
